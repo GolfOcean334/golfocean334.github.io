@@ -1,0 +1,102 @@
+/* General Styles */
+body {
+    background-color: #121212;
+    color: #bbb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #1e1e1e;
+    padding: 15px 10%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+/* Project Container */
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 50px 10%;
+}
+
+.project {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.project-info h2 {
+    color: #fff;
+}
+
+.project-info p {
+    color: #bbb;
+}
+
+/* Carousel Styles */
+.carousel {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.carousel-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
