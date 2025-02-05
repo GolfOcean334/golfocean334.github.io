@@ -7,26 +7,30 @@ body {
 }
 
 .navbar {
-    background-color: #1f1f1f;
-    padding: 1rem;
+    background-color: #1e1e1e;
+    padding: 15px 10%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar ul {
     list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 0;
     padding: 0;
-}
-
-.navbar li {
-    margin: 0 1rem;
+    display: flex;
+    justify-content: space-around;
 }
 
 .navbar a {
-    color: #ffffff;
+    color: #bbb;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 18px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
 }
 
 .main-content {
