@@ -21,7 +21,7 @@
     <!-- Main Content -->
     <section class="contact-content">
         <h1>Contactez-moi</h1>
-        <form action="submit_form.php" method="post">
+        <form id="contact-form">
             <label for="name">Nom:</label>
             <input type="text" id="name" name="name" required>
         
@@ -35,12 +35,43 @@
             <textarea id="message" name="message" rows="4" required></textarea>
         
             <div class="captcha">
-                <label for="captcha">Captcha: 3 + 4 = ?</label>
+                <label for="captcha" id="captcha-label"></label>
                 <input type="text" id="captcha" name="captcha" required>
             </div>
         
             <button type="submit" class="btn">Envoyer</button>
         </form>
+        
+        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script>
+            (function() {
+                emailjs.init("q0trTDzrOfO8QivVJ");
+            })();
+
+            function generateCaptcha() {
+                const num1 = Math.floor(Math.random() * 10);
+                const num2 = Math.floor(Math.random() * 10);
+                document.getElementById('captcha-label').innerText = `Captcha: ${num1} + ${num2} = ?`;
+                return num1 + num2;
+            }
+
+            const correctCaptcha = generateCaptcha();
+
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const userCaptcha = parseInt(document.getElementById('captcha').value);
+                if (userCaptcha !== correctCaptcha) {
+                    alert("Captcha incorrect. Veuillez réessayer.");
+                    return;
+                }
+                emailjs.sendForm('service_wkcineu', 'template_joouz3s', this)
+                    .then(function() {
+                        alert("Message envoyé avec succès.");
+                    }, function(error) {
+                        alert("Échec de l'envoi du message.");
+                    });
+            });
+        </script>
     </section>
 
 </body>

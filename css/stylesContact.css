@@ -7,25 +7,30 @@ body {
 }
 
 .navbar {
-    background-color: #333;
-    padding: 1em;
+    background-color: #1e1e1e;
+    padding: 15px 10%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar ul {
-    list-style-type: none;
-    margin: 0;
+    list-style: none;
     padding: 0;
     display: flex;
-    justify-content: center;
-}
-
-.navbar li {
-    margin: 0 1em;
+    justify-content: space-around;
 }
 
 .navbar a {
-    color: #ffffff;
+    color: #bbb;
     text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
 }
 
 .contact-content {
