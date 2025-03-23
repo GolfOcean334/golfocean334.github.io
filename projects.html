@@ -18,177 +18,150 @@
         </ul>
     </nav>
 
+    <!-- Dropdown pour trier les projets -->
+    <div class="filter-container">
+        <label for="language-filter">Trier par langage :</label>
+        <select id="language-filter">
+            <option value="all">Tous</option>
+            <option value="Unity">Unity (C#)</option>
+            <option value="Unreal">Unreal Engine</option>
+            <option value="C++">C++</option>
+        </select>
+    </div>
+
     <!-- Conteneur des projets -->
     <section class="projects-container">
-        <div class="project">
+        <div class="project" data-language="Unity">
             <div class="project-info">
-                <h2>Projet 1</h2>
-                <p><strong>Langage :</strong> HTML, CSS, JavaScript</p>
-                <div class="carousel">
-                    <img src="images/image1.jpg" class="carousel-image" alt="Projet 1">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
-                <a href="projet1.html" class="btn">Voir plus</a>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-info">
-                <h2>Projet 2</h2>
+                <h2>Midnight Marathon !</h2>
                 <p><strong>Langage :</strong> Unity (C#)</p>
-                <div class="carousel">
-                    <img src="images/image2.jpg" class="carousel-image" alt="Projet 2">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
-                <a href="projet2.html" class="btn">Voir plus</a>
+                <p>Ce jeu mobile a été réalisé en 40 heures lors d'une game jam. Le principe du jeu est que de nombreux mini-jeux apparaissent en bas de l'écran, et en plus, vous devez surveiller le haut de l'écran car de temps en temps, la mère de notre personnage entrera dans la chambre pour vérifier si nous dormons. Si elle nous attrape, nous perdons.</p>
+                <a href="Project Detail/project1.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Unity">
+            <div class="project-info">
+                <h2>AstroShift</h2>
+                <p><strong>Langage :</strong> Unity (C#)</p>
+                <p>Astro Shift Unity est un jeu où vous contrôlez un vaisseau spatial qui peut se déplacer latéralement sur différentes lignes pour éviter les météores entrants.</p>
+                <a href="Project Detail/project2.html" class="btn">Voir plus</a>
+            </div>
+        </div>
+
+        <div class="project" data-language="Python">
             <div class="project-info">
                 <h2>Projet 3</h2>
                 <p><strong>Langage :</strong> Python</p>
-                <div class="carousel">
-                    <img src="images/image3.jpg" class="carousel-image" alt="Projet 3">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Python.</p>
                 <a href="projet3.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Java">
             <div class="project-info">
                 <h2>Projet 4</h2>
                 <p><strong>Langage :</strong> Java</p>
-                <div class="carousel">
-                    <img src="images/image4.jpg" class="carousel-image" alt="Projet 4">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Java.</p>
                 <a href="projet4.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="C++">
             <div class="project-info">
                 <h2>Projet 5</h2>
                 <p><strong>Langage :</strong> C++</p>
-                <div class="carousel">
-                    <img src="images/image5.jpg" class="carousel-image" alt="Projet 5">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en C++.</p>
                 <a href="projet5.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Ruby">
             <div class="project-info">
                 <h2>Projet 6</h2>
                 <p><strong>Langage :</strong> Ruby</p>
-                <div class="carousel">
-                    <img src="images/image6.jpg" class="carousel-image" alt="Projet 6">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Ruby.</p>
                 <a href="projet6.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="PHP">
             <div class="project-info">
                 <h2>Projet 7</h2>
                 <p><strong>Langage :</strong> PHP</p>
-                <div class="carousel">
-                    <img src="images/image7.jpg" class="carousel-image" alt="Projet 7">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en PHP.</p>
                 <a href="projet7.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Swift">
             <div class="project-info">
                 <h2>Projet 8</h2>
                 <p><strong>Langage :</strong> Swift</p>
-                <div class="carousel">
-                    <img src="images/image8.jpg" class="carousel-image" alt="Projet 8">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Swift.</p>
                 <a href="projet8.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Kotlin">
             <div class="project-info">
                 <h2>Projet 9</h2>
                 <p><strong>Langage :</strong> Kotlin</p>
-                <div class="carousel">
-                    <img src="images/image9.jpg" class="carousel-image" alt="Projet 9">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Kotlin.</p>
                 <a href="projet9.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Go">
             <div class="project-info">
                 <h2>Projet 10</h2>
                 <p><strong>Langage :</strong> Go</p>
-                <div class="carousel">
-                    <img src="images/image10.jpg" class="carousel-image" alt="Projet 10">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Go.</p>
                 <a href="projet10.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Rust">
             <div class="project-info">
                 <h2>Projet 11</h2>
                 <p><strong>Langage :</strong> Rust</p>
-                <div class="carousel">
-                    <img src="images/image11.jpg" class="carousel-image" alt="Projet 11">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Rust.</p>
                 <a href="projet11.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="TypeScript">
             <div class="project-info">
                 <h2>Projet 12</h2>
                 <p><strong>Langage :</strong> TypeScript</p>
-                <div class="carousel">
-                    <img src="images/image12.jpg" class="carousel-image" alt="Projet 12">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en TypeScript.</p>
                 <a href="projet12.html" class="btn">Voir plus</a>
             </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-language="Scala">
             <div class="project-info">
                 <h2>Projet 13</h2>
                 <p><strong>Langage :</strong> Scala</p>
-                <div class="carousel">
-                    <img src="images/image13.jpg" class="carousel-image" alt="Projet 13">
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
+                <p>Description : Un projet de développement en Scala.</p>
                 <a href="projet13.html" class="btn">Voir plus</a>
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('language-filter').addEventListener('change', function() {
+            const selectedLanguage = this.value;
+            const projects = document.querySelectorAll('.project');
+            projects.forEach(project => {
+                if (selectedLanguage === 'all' || project.getAttribute('data-language') === selectedLanguage) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

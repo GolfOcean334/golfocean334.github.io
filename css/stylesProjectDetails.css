@@ -35,71 +35,67 @@ body {
     border-bottom: 2px solid #fff;
 }
 
-/* Filter Container */
-.filter-container {
-    background-color: #1e1e1e;
-    padding: 10px;
-    position: sticky;
-    top: 84px;
-    z-index: 999;
+/* Project Details Container */
+.project-details-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: fit-content;
-    margin: 0 auto;
-    border-radius: 10px;
-    border: 1px solid #444; /* Ligne claire autour du conteneur de filtre */
-}
-
-.filter-container label {
-    margin-right: 10px;
-    color: #bbb;
-    font-size: 18px;
-}
-
-.filter-container select {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.filter-container select:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-/* Project Container */
-.projects-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    align-items: flex-start;
     padding: 50px 10%;
 }
 
-.project {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+.project-details {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
-.project-info h2 {
+.project-text {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.structure {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 50%;
+    margin-right: 40px;
+    position: relative;
+}
+
+.project-text h1 {
     color: #fff;
 }
 
-.project-info p {
+.project-text p {
     color: #bbb;
 }
 
-/* Button Styles */
+.project-buttons {
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-media {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 60%;
+}
+
+.project-media img,
+.project-media video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
 .btn {
     display: inline-block;
-    margin-top: 10px;
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
