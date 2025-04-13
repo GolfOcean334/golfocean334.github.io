@@ -6,31 +6,47 @@ body {
     padding: 0;
 }
 
+/* Navbar */
 .navbar {
     background-color: #1e1e1e;
     padding: 15px 10%;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
 }
 
 .navbar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar a {
-    color: #bbb;
+    color: #ffcc00;
     text-decoration: none;
     font-size: 18px;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .navbar a:hover,
 .navbar a.active {
-    color: #fff;
-    border-bottom: 2px solid #fff;
+    color: #ffffff;
+    background-color: #ffcc00;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
+}
+
+.navbar.scrolled {
+    background-color: #121212;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
 }
 
 .contact-content {
