@@ -139,6 +139,13 @@ body {
     margin-left: 5px;
 }
 
+.language-logo-cpp {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
 .project-info h2 {
     font-size: 2rem;
     font-weight: bold;
