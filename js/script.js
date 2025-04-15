@@ -27,3 +27,23 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('scrolled');
     }
 });
+
+// Change la couleur du mot "highlight" au clic sur l'image de profil
+document.addEventListener("DOMContentLoaded", () => {
+    const profilePicture = document.getElementById("profile-picture");
+    const highlightWord = document.getElementById("highlight-word");
+
+    // Fonction pour générer une couleur aléatoire
+    function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    profilePicture.addEventListener("click", () => {
+        highlightWord.style.color = getRandomColor();
+    });
+});

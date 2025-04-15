@@ -198,7 +198,7 @@ body {
 }
 .btn:hover {
     background-color: #2c2c2c;
-    transform: scale(1.6);
+    transform: scale(1.1);
 }
 
 /* Animations */
