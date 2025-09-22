@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio</title>
     <link rel="stylesheet" href="css/stylesProjects.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script defer src="js/script.js"></script>
 </head>
 <body>
@@ -12,25 +13,64 @@
     <!-- Navbar -->
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="projects.html">Projets</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html" id="nav-home-link">Accueil</a></li>
+            <li>
+                <a id="nav-projects-link"
+                   class="current"
+                   role="button"
+                   aria-controls="filter-container"
+                   aria-expanded="false"
+                   title="Afficher les filtres">Projets</a>
+            </li>
+            <li><a href="contact.html" id="nav-contact-link">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Dropdown pour trier les projets -->
-    <div class="filter-container">
+    <div class="filter-container" id="filter-container">
         <label for="language-filter">Trier par langage :</label>
         <select id="language-filter">
-            <option value="all">Tous</option>
-            <option value="Unity">Unity (C#)</option>
-            <option value="Unreal">Unreal Engine</option>
-            <option value="C++">C++</option>
+            <option value="all">🌐 Tous les langages</option>   
+            <option value="Unity">🎮 Unity (C#)</option>
+            <option value="Unreal">🛠️ Unreal Engine</option>
+            <option value="C++">💻 C++</option>
+            <option value="CSharp">💻 CSharp</option>
         </select>
     </div>
 
     <!-- Conteneur des projets -->
     <section class="projects-container">
+
+        <div class="project" data-language="CSharp">
+            <div class="project-info">
+                <h2>Minecraft Game Engine</h2>
+                <img src="images/CSharp_logo.png" alt="CSharp logo" class="language-logo-csharp"></p>
+                <img src="images" alt="Minecraft Game Engine" class="project-thumbnail">
+                <p>Voici un aperçu de mon moteur de jeu Minecraft, un projet passionnant qui vise à créer mon propre moteur de jeu voxel basé sur le jeu Minecraft.</p>
+                <a href="Project Detail/project11.html" class="btn">Voir plus</a>
+            </div>
+        </div>
+
+
+        <div class="project" data-language="Unity">
+            <div class="project-info">
+                <h2>Metro Fix Up</h2>
+                <img src="images/unity_logo.png" alt="Unity logo" class="language-logo-unity"></p>
+                <img src="images" alt="Metro Fix Up" class="project-thumbnail">
+                <p>Metro Fix Up est un jeu commandé par la RATP pour initier les jeunes aux métiers "cachés" de la maintenance des stations de métro.</p>
+                <a href="Project Detail/project12.html" class="btn">Voir plus</a>
+            </div>
+        </div>
+
+        <div class="project" data-language="Unreal">
+            <div class="project-info">
+                <h2>Portal Dash</h2>
+                <img src="images/Unreal_Engine_logo.png" alt="Unreal Engine logo" class="language-logo-unreal"></p>
+                <img src="images" alt="Portal Dash" class="project-thumbnail">
+                <p>Bienvenue dans notre projet de jeu passionnant, une base de Tower Defense offrant une expérience immersive et stratégique. Actuellement, le jeu permet aux joueurs de placer des tours sur le terrain, tandis que ces tours tirent des projectiles sur les ennemis qui tentent de traverser le chemin prédéfini. Le jeu est conçu pour évoluer avec des fonctionnalités supplémentaires à ajouter, offrant ainsi une expérience de Tower Defense personnalisable et améliorée.</p>
+                <a href="Project Detail/project13.html" class="btn">Voir plus</a>
+            </div>
+        </div>
+
         <div class="project" data-language="Unity">
             <div class="project-info">
                 <h2>Midnight Marathon !</h2>
@@ -74,7 +114,7 @@
         <div class="project" data-language="Unreal">
             <div class="project-info">
                 <h2>PodRacer</h2>
-                <img src="images/Unreal_Engine_logo.png" alt="Unity Logo" class="language-logo-unreal"></p>
+                <img src="images/Unreal_Engine_logo.png" alt="Unreal Engine Logo" class="language-logo-unreal"></p>
                 <img src="images/Project5/img4.png" alt="PodRacer" class="project-thumbnail">
                 <p>PodRacer est un jeu de course et de parcours nerveux dans la veine de Trackmania, où le joueur prend les commandes d’un vaisseau anti-gravité flottant au-dessus du sol. Ici, pas de simples virages ou lignes droites : les circuits sont des défis acrobatiques où précision, vitesse et créativité sont les clés de la victoire.</p>
                 <a href="Project Detail/project5.html" class="btn">Voir plus</a>
@@ -131,20 +171,5 @@
             </div>
         </div>
     </section>
-
-    <script>
-        document.getElementById('language-filter').addEventListener('change', function() {
-            const selectedLanguage = this.value;
-            const projects = document.querySelectorAll('.project');
-            projects.forEach(project => {
-                if (selectedLanguage === 'all' || project.getAttribute('data-language') === selectedLanguage) {
-                    project.style.display = 'block';
-                } else {
-                    project.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
 </body>
 </html>

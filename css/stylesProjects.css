@@ -1,16 +1,24 @@
-/* General Styles */
+@keyframes gradientMove {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
 body {
     background-color: #121212;
-    color: #bbb;
-    font-family: Arial, sans-serif;
+    color: #ffffff;
+    font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb);
+    background-size: 300% 300%;
+    animation: gradientMove 15s ease infinite;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #1e1e1e;
-    padding: 15px 10%;
+    background-color: rgba(30, 30, 30, 0.9); /* Fond semi-transparent pour s'harmoniser avec le gradient */
+    padding: 30px 20%;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -28,26 +36,99 @@ body {
 }
 
 .navbar a {
-    color: #ffcc00;
+    color: #feca57; /* Jaune vif de la palette */
     text-decoration: none;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
     padding: 10px 25px;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative; /* nécessaire pour le ::after */
+}
+
+#nav-home-link::before {
+    content: "🏠";
+    margin-right: 8px;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+}
+
+#nav-contact-link::before {
+    content: "✉️";
+    margin-right: 8px;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+}
+
+/* Barre dégradée sous chaque bouton de la navbar */
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s ease;
+}
+.navbar a:hover::after,
+.navbar a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .navbar a:hover,
 .navbar a.active {
     color: #ffffff;
-    background-color: #ffcc00;
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
+}
+
+/* Souligner l’onglet courant "Projets" dans la navbar */
+.navbar a.current {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
 }
 
 .navbar.scrolled {
-    background-color: #121212;
+    background-color: rgba(18, 18, 18, 0.95);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* CTA visuel pour le bouton Projets */
+#nav-projects-link {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: rgba(18, 18, 18, 0.05);
+}
+
+/* Icône loupe avant le texte */
+#nav-projects-link::before {
+    content: "🔍";
+}
+
+/* Pulse d’attention tant que le filtre est fermé */
+#nav-projects-link.cta-pulse {
+    animation: ctaPulse 2.4s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(72,219,251,0.35);
+}
+@keyframes ctaPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(72,219,251,0.35); }
+    70%  { box-shadow: 0 0 0 12px rgba(72,219,251,0); }
+    100% { box-shadow: 0 0 0 0 rgba(72,219,251,0); }
+}
+
+/* État ouvert: garder la barre gradient à fond sous "Projets" */
+#nav-projects-link.is-open::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Animation de fermeture: la barre se rétracte vers la droite */
+#nav-projects-link.is-closing::after {
+    transform-origin: right;
+    transform: scaleX(0) !important;
 }
 
 /* Filter Container */
@@ -55,9 +136,9 @@ body {
     background-color: #1e1e1e;
     padding: 10px 20px;
     position: sticky;
-    top: 60px;
+    top: 100px;
     z-index: 999;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     width: fit-content;
@@ -66,6 +147,10 @@ body {
     border: 1px solid #444;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-container.open {
+    display: flex;
 }
 
 .filter-container:hover {
@@ -109,20 +194,47 @@ body {
     padding: 50px 10%;
 }
 
+.project {
+    background: rgba(30, 30, 30, 0.65); /* Fond semi-transparent pour s'harmoniser avec le gradient */
+    padding: 20px;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+    transform: scale(1.04); /* Légère mise en avant au survol */
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
+}
+
+.project-info h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #feca57;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    border-bottom: 3px solid #feca57;
+    padding-bottom: 5px;
+}
+
+.project-info p {
+    color: #f7eded; 
+}
+
+/* Miniatures des projets */
 .project-thumbnail {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 50px;
     margin-bottom: 15px;
-}
-
-.project {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    border: 4px solid transparent;
+    background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb, #ff6b6b);
+    background-size: 300% 300%;
+    animation: gradientMove 15s ease infinite;
 }
 
 .language-logo-unity {
@@ -146,20 +258,11 @@ body {
     margin-left: 5px;
 }
 
-.project-info h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ffcc00;
-    text-align: center;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    border-bottom: 3px solid #ffcc00;
-    padding-bottom: 5px;
-}
-
-.project-info p {
-    color: #bbb;
+.language-logo-csharp {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    margin-left: 5px;
 }
 
 /* Button Styles */
@@ -167,7 +270,7 @@ body {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #ffcc00;
+    background-color: #48dbfb; /* Bleu vif de la palette */
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -177,9 +280,9 @@ body {
 }
 
 .btn:hover {
-    background-color: #ffaa00;
+    background-color: #ff6b6b; /* Rouge vif de la palette */
     color: white;
     transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(255, 170, 0, 0.5);
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }

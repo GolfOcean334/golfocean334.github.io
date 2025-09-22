@@ -8,15 +8,15 @@ html, body {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     background-color: #121212;
     color: #ffffff;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #1e1e1e;
-    padding: 15px 10%;
+    background-color: rgba(30, 30, 30, 0.9); /* Fond semi-transparent pour s'harmoniser avec le gradient */
+    padding: 30px 20%;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -34,9 +34,9 @@ body {
 }
 
 .navbar a {
-    color: #ffcc00;
+    color: #feca57; /* Jaune vif de la palette */
     text-decoration: none;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
     padding: 10px 25px;
     border-radius: 5px;
@@ -46,13 +46,20 @@ body {
 .navbar a:hover,
 .navbar a.active {
     color: #ffffff;
-    background-color: #ffcc00;
+    background-color: #ff6b6b; /* Rouge vif de la palette */
     transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.5);
+}
+
+/* Souligner l’onglet courant "Projets" dans la navbar */
+.navbar a.current {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
 }
 
 .navbar.scrolled {
-    background-color: #121212;
+    background-color: rgba(18, 18, 18, 0.95);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
 }
 
