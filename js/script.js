@@ -82,3 +82,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Drawer détails projet (ouvre la page de détail dans un iframe)
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.projects-container');
+  const overlay = document.getElementById('drawer-overlay');
+  const drawer = document.getElementById('project-drawer');
+  const iframe = document.getElementById('project-drawer-iframe');
+  const closeBtn = drawer ? drawer.querySelector('.drawer-close') : null;
+  if (!container || !overlay || !drawer || !iframe || !closeBtn) return;
+
+  function openDrawer(url) {
+    iframe.src = url;
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // vider l’iframe après l’anim pour libérer la page
+    setTimeout(() => { iframe.src = 'about:blank'; }, 350);
+  }
+
+  // Délégation de clic: n’importe où sur la carte ouvre les détails
+  container.addEventListener('click', (e) => {
+    const card = e.target.closest('.project');
+    if (!card) return;
+    e.preventDefault();
+
+    // Récupère le lien "Voir plus" existant comme URL cible
+    const link = card.querySelector('a.btn[href]');
+    const url = link ? link.getAttribute('href') : null;
+    if (url) openDrawer(url);
+  });
+
+  // Fermetures
+  overlay.addEventListener('click', closeDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+});
