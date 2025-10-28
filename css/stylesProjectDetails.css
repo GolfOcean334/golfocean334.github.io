@@ -73,6 +73,18 @@ body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.7);
 }
 
+#title-project {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #feca57;
+  text-align: center;
+  margin: 0 0 20px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  border-bottom: 3px solid #feca57;
+  padding-bottom: 8px;
+}
+
 /* Titres + cartes texte alignés à la charte */
 .project-details-container {
   display: flex;
@@ -142,17 +154,16 @@ body {
 }
 
 /* Images/vidéos: remplissage propre avec ratio, sans rétrécir */
-.project-media img,
-.project-media video {
+.project-media > img,
+.project-media > video {
   width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 16 / 9;     /* ratio confortable */
-  object-fit: cover;         /* couvre sans déformer */
-  border-radius: 10px;
+  height: 100%;
+  aspect-ratio: 16 / 9;      /* cadre fixe */
+  object-fit: contain;        /* pas de coupe, bandes noires possibles */
+  background: #0f0f0f;
+  border-radius: 10px;  
   border: 2px solid #48dbfb;
   box-shadow: 0 0 10px rgba(0,0,0,0.35);
-  background: #0f0f0f;
 }
 
 /* Boutons unifiés (palette Projects) — remplace les styles jaunes */   
@@ -187,7 +198,19 @@ body {
 #nav-projects-link::before { content: "🔍"; }
 
 /* Option: centrer les boutons d’action si nécessaires dans la page détail */
-.project-buttons { display: flex; gap: 10px; justify-content: center; }
+.project-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px; /* espace sous le texte */
+}
+
+/* Si des boutons sont directement dans une carte sans wrapper */
+.info-card .btn { margin-top: 24px; }
+
+@media (max-width: 768px) {
+  .project-buttons { margin-top: 22px; }
+}
 
 /* H2: couleurs alternées (palette Projects) */
 .info-grid .info-card h2 {
@@ -198,6 +221,8 @@ body {
   border-bottom: 2px solid currentColor;
   padding-bottom: 6px;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+  display: inline-block;
+  width: auto;
 }
 
 /* 1er, 4e, 7e… → rouge */
