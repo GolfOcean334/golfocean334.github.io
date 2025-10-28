@@ -11,9 +11,9 @@
     <!-- Navbar -->
     <nav class="navbar">
         <ul>
-            <li><a href="/index.html">Accueil</a></li>
-            <li><a href="/projects.html">Projets</a></li>
-            <li><a href="/contact.html">Contact</a></li>
+            <li><a id="nav-home-link" href="/index.html">Accueil</a></li>
+            <li><a id="nav-projects-link" href="/projects.html">Projets</a></li>
+            <li><a id="nav-contact-link" href="/contact.html">Contact</a></li>
         </ul>
     </nav>
 
@@ -21,24 +21,79 @@
     <section class="project-details-container">
         <div class="project-details">
             <div class="structure">
-                <div class="project-text">
-                    <h1>Minecraft Game Engine</h1>
-                    <p>Ce jeu mobile a été réalisé en 40 heures lors d'une game jam. Le principe du jeu est que de nombreux mini-jeux apparaissent en bas de l'écran, et en plus, vous devez surveiller le haut de l'écran car de temps en temps, la mère de notre personnage entrera dans la chambre pour vérifier si nous dormons. Si elle nous attrape, nous perdons.</p>
-                    <h1>Gameplay</h1>
-                    <p><strong>Objectif :</strong> Compléter autant de mini-jeux que possible tout en évitant d'être attrapé par la mère de votre personnage.</p>
-                    <p><strong>Contrôles :</strong> Utilisez les contrôles tactiles pour interagir avec les mini-jeux en bas de l'écran.</p>
-                    <p><strong>Défi :</strong> Surveillez le haut de l'écran pour éviter d'être attrapé.</p>
-                    <div class="project-buttons">
-                    <a href="https://ninikow.itch.io/midnight-marathon" class="btn">Vers Itch io</a>
-                    <a href="https://github.com/GolfOcean334/Midnight-Marathon" class="btn">Vers Github</a>
-                    </div>
+                <!-- Remplace .project-text par une grille de cartes -->
+                <div class="info-grid">
+                    <section class="info-card">
+                        <h2>Présentation</h2>
+                        <p>Un moteur de jeu sandbox inspiré de Minecraft, développé en <strong>C#</strong> avec <strong>OpenGL</strong>, capable de générer un monde infini basé sur des chunks et des blocs, avec un système de multithreading pour des performances optimisées. Le moteur permet au joueur de se déplacer librement et interagir avec l’environnement.</p>
+                    </section>
+
+                    <section class="info-card"> 
+                        <h2>Objectifs</h2>
+                        <p>Créer un moteur de jeu personnalisé pour explorer <strong>la génération procédurale</strong>, <strong>la gestion de chunks</strong>, <strong>les collisions</strong>, et <strong>les optimisations de rendu temps réel</strong>.</p>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Génération de terrain</h3>
+                        <ul>
+                            <li>Seed + Simplex Noise (biomes, montagnes, plaines…)</li>
+                            <li>Monde infini, découpé en chunks.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Chunks & multithreading</h3>
+                        <ul>
+                            <li>Génération/mise à jour en arrière-plan.</li>
+                            <li>Chunks éloignés désactivés pour économiser.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Rendu OpenGL</h3>
+                        <ul>
+                            <li>Pipeline simple pour les blocs.</li>
+                            <li>Base prête pour textures/éclairage.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Interaction joueur</h3>
+                        <ul>
+                            <li>Caméra libre, exploration.</li>
+                            <li>Collisions activables.</li>
+                            <li>Placement/destruction de blocs.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Sauvegarde</h3>
+                        <ul>
+                            <li>Persistance des chunks générés.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Optimisations</h3>
+                        <ul>
+                            <li>Multithreading pour la génération.</li>
+                            <li>Base meshing: suppression des faces invisibles.</li>
+                        </ul>
+                    </section>
+
+                    <section class="info-card">
+                        <h3>Outils & debug</h3>
+                        <ul>
+                            <li>HUD: coordonnées et infos utiles.</li>
+                        </ul>
+                    </section>
                 </div>
             </div>
+
             <div class="project-media">
-                <img src="/images/Project1/img1.png" alt="Screenshot 1">
-                <img src="/images/Project1/img2.png" alt="Screenshot 2">
-                <img src="/images/Project1/img3.png" alt="Screenshot 3">
-                <img src="/images/Project1/img4.png" alt="Screenshot 4">
+                <img src="/images/Projet11/Minecraft1.png" alt="Screenshot 1">
+                <img src="/images/Projet11/Minecraft2.png" alt="Screenshot 2">
+                <img src="/images/Projet11/Minecraft3.png" alt="Screenshot 3">
             </div>
         </div>
     </section>

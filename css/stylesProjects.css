@@ -136,9 +136,9 @@ body {
     background-color: #1e1e1e;
     padding: 10px 20px;
     position: sticky;
-    top: 100px;
+    top: 90px; /* juste sous la navbar */
     z-index: 999;
-    display: none;
+    display: flex; /* toujours visible */
     justify-content: center;
     align-items: center;
     width: fit-content;
@@ -147,10 +147,6 @@ body {
     border: 1px solid #444;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.filter-container.open {
-    display: flex;
 }
 
 .filter-container:hover {

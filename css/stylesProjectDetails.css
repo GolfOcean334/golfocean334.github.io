@@ -7,7 +7,20 @@ body {
     padding: 0;
 }
 
-/* Navbar */
+/* Gradient animé + thème global (identique aux autres pages) */
+@keyframes gradientMove {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+body {
+  background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb);
+  background-size: 300% 300%;
+  animation: gradientMove 15s ease infinite;
+  color: #ffffff;
+}
+
+/* Navbar: soulignement dégradé qui entre par la gauche et sort par la droite */
 .navbar {
     background-color: rgba(30, 30, 30, 0.9); /* Fond semi-transparent pour s'harmoniser avec le gradient */
     padding: 30px 20%;
@@ -35,113 +48,170 @@ body {
     padding: 10px 25px;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative; /* nécessaire pour ::after */
 }
-
-.navbar a:hover,
-.navbar a.active {
-    color: #ffffff;
-    background-color: #ff6b6b; /* Rouge vif de la palette */
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.5);
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: right;   /* se retire vers la droite */
+  transition: transform .35s ease;
 }
-
-/* Souligner l’onglet courant "Projets" dans la navbar */
-.navbar a.current {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-thickness: 2px;
+.navbar a:hover::after,
+.navbar a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;    /* entre depuis la gauche */
 }
-
 .navbar.scrolled {
-    background-color: rgba(18, 18, 18, 0.95);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+  background-color: rgba(18,18,18,0.95);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.7);
 }
 
-/* Project Details Container */
+/* Titres + cartes texte alignés à la charte */
 .project-details-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 50px 10%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 8%;
 }
-
 .project-details {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
 }
 
-.project-text {
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    position: relative;
+/* Donne plus d’espace aux médias et rend la grille responsive */
+.project-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* évite des vignettes trop petites */
+  gap: 24px;
+  flex: 1 1 65%;
+  max-width: none;   /* ne limite plus à 60% */
+  width: 100%;
 }
+
+/* Le bloc texte prend le reste de l’espace */
+.project-text,
+.structure {
+  background-color: #1e1e1e;
+  color: #bbb;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.project-text::after,
+.structure::after {
+  content: "";
+  position: absolute;
+  inset: -10px;                 /* déborde pour l’effet de lueur */
+  border-radius: inherit;
+  background: linear-gradient(90deg, #48dbfb, #feca57, #ff6b6b); /* inverse du fond (270deg) */
+  filter: blur(16px);
+  opacity: 0;
+  transition: opacity .25s ease, filter .25s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.project-text:hover::after,
+.structure:hover::after {
+  opacity: 0.9;
+  filter: blur(20px);
+}
+
+.project-text { flex: 1 1 35%; }
 
 .project-text h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ffcc00;
-    text-align: center;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    border-bottom: 3px solid #ffcc00;
-    padding-bottom: 5px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #feca57;                 /* harmonisé */
+  text-align: center;
+  margin: 0 0 20px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  border-bottom: 3px solid #feca57; /* harmonisé */
+  padding-bottom: 8px;
 }
 
-.structure {
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 50%;
-    margin-right: 40px;
-    position: relative;
-}
-
-.project-text p {
-    color: #bbb;
-}
-
-.project-buttons {
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.project-media {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    max-width: 60%;
-}
-
+/* Images/vidéos: remplissage propre avec ratio, sans rétrécir */
 .project-media img,
 .project-media video {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;     /* ratio confortable */
+  object-fit: cover;         /* couvre sans déformer */
+  border-radius: 10px;
+  border: 2px solid #48dbfb;
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+  background: #0f0f0f;
 }
 
-/* Button Styles */
+/* Boutons unifiés (palette Projects) — remplace les styles jaunes */   
 .btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #ffcc00;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #48dbfb;     /* bleu (état normal) */
+  color: #121212;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+.btn:hover {
+  background-color: #ff6b6b;     /* rouge au hover */
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 10px 24px rgba(255,107,107,0.35);
 }
 
-.btn:hover {
-    background-color: #ffaa00;
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(255, 170, 0, 0.5);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+/* Mise en page responsive */
+@media (max-width: 1100px) {
+  .project-details { flex-direction: column; }
+  .project-media { max-width: 100%; grid-template-columns: 1fr; }
+}
+
+/* Icônes navbar (cohérence avec Projects) */
+#nav-home-link::before { content: "🏠"; margin-right: 8px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.4)); }
+#nav-contact-link::before { content: "✉️"; margin-right: 8px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.4)); }
+#nav-projects-link::before { content: "🔍"; }
+
+/* Option: centrer les boutons d’action si nécessaires dans la page détail */
+.project-buttons { display: flex; gap: 10px; justify-content: center; }
+
+/* H2: couleurs alternées (palette Projects) */
+.info-grid .info-card h2 {
+  margin: 0 0 10px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: var(--h2-color, #feca57);
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 6px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+}
+
+/* 1er, 4e, 7e… → rouge */
+.info-grid .info-card:nth-child(3n+1) h2 { --h2-color: #ff6b6b; }
+/* 2e, 5e, 8e… → jaune */
+.info-grid .info-card:nth-child(3n+2) h2 { --h2-color: #feca57; }
+/* 3e, 6e, 9e… → bleu */
+.info-grid .info-card:nth-child(3n+3) h2 { --h2-color: #48dbfb; }
+
+/* H3: couleurs alternées (palette Projects) */
+.info-grid .info-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #ffda8a;
 }

@@ -48,37 +48,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// CTA Projets: toggle filtre + gestion de l’animation de la barre
-document.addEventListener('DOMContentLoaded', () => {
-  const projectsLink = document.getElementById('nav-projects-link');
-  const filterContainer = document.getElementById('filter-container');
-  if (!projectsLink || !filterContainer) return;
+// // CTA Projets: toggle filtre + gestion de l’animation de la barre
+// document.addEventListener('DOMContentLoaded', () => {
+//   const projectsLink = document.getElementById('nav-projects-link');
+//   const filterContainer = document.getElementById('filter-container');
+//   if (!projectsLink || !filterContainer) return;
 
-  projectsLink.classList.add('cta-pulse');
-  projectsLink.setAttribute('aria-controls', 'filter-container');
-  projectsLink.setAttribute('aria-expanded', 'false');
+//   projectsLink.classList.add('cta-pulse');
+//   projectsLink.setAttribute('aria-controls', 'filter-container');
+//   projectsLink.setAttribute('aria-expanded', 'false');
 
-  projectsLink.addEventListener('click', (e) => {
-    e.preventDefault();
+//   projectsLink.addEventListener('click', (e) => {
+//     e.preventDefault();
 
-    const isOpening = !filterContainer.classList.contains('open');
-    if (isOpening) {
-      // Ouvre: barre sous Projets pleine largeur
-      filterContainer.classList.add('open');
-      projectsLink.setAttribute('aria-expanded', 'true');
-      projectsLink.classList.remove('is-closing');
-      projectsLink.classList.add('is-open');
-      projectsLink.classList.remove('cta-pulse');
-    } else {
-      // Ferme: barre se rétracte vers la droite
-      projectsLink.classList.remove('is-open');
-      projectsLink.classList.add('is-closing');
-      projectsLink.setAttribute('aria-expanded', 'false');
-      filterContainer.classList.remove('open');
-      projectsLink.classList.add('cta-pulse');
+//     const isOpening = !filterContainer.classList.contains('open');
+//     if (isOpening) {
+//       // Ouvre: barre sous Projets pleine largeur
+//       filterContainer.classList.add('open');
+//       projectsLink.setAttribute('aria-expanded', 'true');
+//       projectsLink.classList.remove('is-closing');
+//       projectsLink.classList.add('is-open');
+//       projectsLink.classList.remove('cta-pulse');
+//     } else {
+//       // Ferme: barre se rétracte vers la droite
+//       projectsLink.classList.remove('is-open');
+//       projectsLink.classList.add('is-closing');
+//       projectsLink.setAttribute('aria-expanded', 'false');
+//       filterContainer.classList.remove('open');
+//       projectsLink.classList.add('cta-pulse');
 
-      // Nettoie la classe après l’animation (durée CSS 0.35s)
-      setTimeout(() => projectsLink.classList.remove('is-closing'), 400);
-    }
-  });
-});
+//       // Nettoie la classe après l’animation (durée CSS 0.35s)
+//       setTimeout(() => projectsLink.classList.remove('is-closing'), 400);
+//     }
+//   });
+// });
