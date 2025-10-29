@@ -190,6 +190,18 @@ body {
     padding: 50px 10%;
 }
 
+#title-project {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #feca57;
+  text-align: center;
+  margin: 0 0 20px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  border-bottom: 3px solid #feca57;
+  padding-bottom: 8px;
+}
+
 .project {
     background: rgba(30, 30, 30, 0.65);
     padding: 20px;

@@ -225,14 +225,11 @@ body {
   width: auto;
 }
 
-/* 1er, 4e, 7e… → rouge */
 .info-grid .info-card:nth-child(3n+1) h2 { --h2-color: #ff6b6b; }
-/* 2e, 5e, 8e… → jaune */
 .info-grid .info-card:nth-child(3n+2) h2 { --h2-color: #feca57; }
-/* 3e, 6e, 9e… → bleu */
 .info-grid .info-card:nth-child(3n+3) h2 { --h2-color: #48dbfb; }
 
-/* H3: couleurs alternées (palette Projects) */
+/* H3: couleurs alternées */
 .info-grid .info-card h3 {
   margin: 0 0 10px;
   font-size: 1.15rem;
