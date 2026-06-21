@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test DA</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#" class="active">Projets</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div style="padding: 4rem 10%; display: flex; gap: 3rem; flex-wrap: wrap;">
+
+    <!-- Test card -->
+    <div class="card" style="width: 300px;">
+      <div class="pin" data-color="rouge"></div>
+      <img src="https://placehold.co/300x180/e8dcc8/2c1810?text=Projet" 
+           style="width:100%; border-radius:2px; margin-bottom:1rem;">
+      <h3>Midnight Marathon</h3>
+      <p>Jeu mobile réalisé en 40h lors d'une game jam.</p>
+      <div style="margin: 0.8rem 0;">
+        <span class="scotch" data-lang="Unity">Unity</span>
+        <span class="scotch" data-lang="CSharp">C#</span>
+      </div>
+      <a href="#" class="btn">Voir plus</a>
+    </div>
+
+    <!-- Test card 2 -->
+    <div class="card" style="width: 300px;">
+      <div class="pin" data-color="bleu"></div>
+      <img src="https://placehold.co/300x180/e8dcc8/2c1810?text=Projet+IA" 
+           style="width:100%; border-radius:2px; margin-bottom:1rem;">
+      <h3>IA Five-Card RL</h3>
+      <p>Agent RL entraîné par DQN et PPO sur le jeu Duo.</p>
+      <div style="margin: 0.8rem 0;">
+        <span class="scotch" data-lang="Python">Python</span>
+      </div>
+      <a href="#" class="btn">Voir plus</a>
+      <a href="#" class="btn btn-accent" style="margin-left:8px;">🎮 Jouer</a>
+    </div>
+
+  </div>
+
+  <script src="js/rotations.js"></script>
+</body>
+</html>

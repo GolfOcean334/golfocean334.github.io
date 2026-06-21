@@ -1,0 +1,487 @@
+/* ============================================
+   IMPORTS FONTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&display=swap');
+
+/* ============================================
+   VARIABLES GLOBALES
+   ============================================ */
+:root {
+  --kraft:        #C8A97E;
+  --kraft-dark:   #B8956A;
+  --papier:       #FDF6E3;
+  --papier-ombre: #F0E6C8;
+
+  --texte:        #2C1810;
+  --texte-doux:   #6B4C3B;
+  --texte-clair:  #9C7B6B;
+
+  --pin-rouge:    #C0392B;
+  --pin-bleu:     #2471A3;
+  --pin-vert:     #1E8449;
+  --pin-jaune:    #D4AC0D;
+  --pin-violet:   #7D3C98;
+
+  --scotch-unity:  rgba(244, 208, 63,  0.80);
+  --scotch-unreal: rgba(100, 160, 220, 0.80);
+  --scotch-python: rgba(100, 200, 130, 0.80);
+  --scotch-cpp:    rgba(220, 100, 120, 0.80);
+  --scotch-csharp: rgba(160, 100, 220, 0.80);
+
+  --font-titre: 'Patrick Hand', cursive;
+  --font-texte: 'Caveat', cursive;
+
+  --radius:      4px;
+  --shadow-card: 4px 8px 20px rgba(44, 24, 16, 0.25);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ============================================
+   FOND KRAFT AVEC TEXTURE PAPIER
+   ============================================ */
+body {
+  font-family: var(--font-texte);
+  font-size: 1.1rem;
+  color: var(--texte);
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--kraft);
+}
+
+/* Couche 1 : grain de papier kraft via SVG filtre */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Couche 2 : lignes horizontales subtiles (veinage papier kraft) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 18px,
+    rgba(44, 24, 16, 0.8) 18px,
+    rgba(44, 24, 16, 0.8) 19px
+  );
+}
+
+/* Tout le contenu passe au-dessus des pseudo-éléments du body */
+body > * { position: relative; z-index: 1; }
+
+/* ============================================
+   TYPOGRAPHIE
+   ============================================ */
+h1, h2, h3, h4 {
+  font-family: var(--font-titre);
+  color: var(--texte);
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2rem,   5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+
+p, li, label, input, textarea {
+  font-family: var(--font-texte);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--texte-doux);
+}
+
+/* ============================================
+   NAVBAR — TEXTURE LIÈGE
+   ============================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 8%;
+  border-bottom: 3px solid rgba(44, 24, 16, 0.25);
+  overflow: hidden;
+
+  /* Couleur de base liège */
+  background-color: #A0784A;
+}
+
+/* Texture liège : combinaison de deux turbulences pour simuler les fibres */
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Cercles irréguliers qui imitent les pores du liège */
+  background-image:
+    radial-gradient(ellipse 3px 2px at 12% 30%, rgba(80,50,20,0.35) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 3px at 28% 70%, rgba(80,50,20,0.25) 0%, transparent 100%),
+    radial-gradient(ellipse 4px 2px at 45% 20%, rgba(80,50,20,0.30) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 4px at 60% 80%, rgba(80,50,20,0.20) 0%, transparent 100%),
+    radial-gradient(ellipse 3px 2px at 75% 45%, rgba(80,50,20,0.35) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 3px at 88% 25%, rgba(80,50,20,0.25) 0%, transparent 100%),
+    radial-gradient(ellipse 3px 3px at 33% 55%, rgba(120,80,30,0.20) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 2px at 55% 40%, rgba(120,80,30,0.15) 0%, transparent 100%),
+    radial-gradient(ellipse 4px 2px at 70% 65%, rgba(80,50,20,0.25) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 3px at 18% 85%, rgba(80,50,20,0.20) 0%, transparent 100%);
+  background-size: 120px 80px;
+  background-repeat: repeat;
+}
+
+/* Grain fin par-dessus */
+.navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.navbar ul {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1rem 0;
+}
+
+.navbar a {
+  font-family: var(--font-titre);
+  font-size: 1.3rem;
+  color: var(--papier);
+  text-decoration: none;
+  padding: 6px 2px;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--papier);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.navbar a:hover { color: #ffffff; }
+.navbar a:hover::after,
+.navbar a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ============================================
+   CARD PAPIER — BORD SUPÉRIEUR DÉCHIRÉ
+   ============================================ */
+.card {
+  position: relative;
+  background-color: var(--papier);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: var(--shadow-card);
+
+  /* Point de pivot = le pin en haut au centre */
+  transform-origin: 50% 0%;
+
+  /* Rotation initiale définie par JS */
+  transform: rotate(-1deg);
+
+  /* Transition douce sauf pendant le balancier (géré par JS) */
+  transition: box-shadow 0.3s ease;
+}
+
+/* Bord supérieur déchiré via clip-path */
+/* On laisse le bas et les côtés droits, seul le haut est irrégulier */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0px;
+  right: 0px;
+  height: 18px;
+  background-color: var(--papier);
+  z-index: 1;
+
+  /* Forme déchirée — dents irrégulières sur le bord supérieur */
+  clip-path: polygon(
+    0%   100%,
+    0%   60%,
+    2%   30%,
+    4%   55%,
+    6%   20%,
+    8%   50%,
+    11%  10%,
+    13%  45%,
+    16%  15%,
+    18%  50%,
+    21%  25%,
+    23%  55%,
+    26%  8%,
+    28%  40%,
+    31%  18%,
+    33%  48%,
+    36%  12%,
+    38%  42%,
+    41%  22%,
+    43%  52%,
+    46%  5%,
+    48%  38%,
+    51%  18%,
+    53%  50%,
+    56%  10%,
+    58%  45%,
+    61%  20%,
+    63%  48%,
+    66%  8%,
+    68%  40%,
+    71%  22%,
+    73%  52%,
+    76%  15%,
+    78%  45%,
+    81%  18%,
+    83%  50%,
+    86%  5%,
+    88%  35%,
+    91%  12%,
+    93%  42%,
+    96%  22%,
+    98%  55%,
+    100% 40%,
+    100% 100%
+  );
+}
+
+/* Ombre sous le bord déchiré pour donner du relief */
+.card::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(44, 24, 16, 0.12),
+    transparent
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   PIN
+   ============================================ */
+.pin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.45);
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255,255,255,0.6) 0%,
+    var(--pin-color, var(--pin-rouge)) 55%
+  );
+  cursor: pointer;
+}
+
+.pin[data-color="rouge"]  { --pin-color: var(--pin-rouge);  }
+.pin[data-color="bleu"]   { --pin-color: var(--pin-bleu);   }
+.pin[data-color="vert"]   { --pin-color: var(--pin-vert);   }
+.pin[data-color="jaune"]  { --pin-color: var(--pin-jaune);  }
+.pin[data-color="violet"] { --pin-color: var(--pin-violet); }
+
+/* Tige */
+.pin::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 9px;
+  background: rgba(44, 24, 16, 0.35);
+  border-radius: 0 0 2px 2px;
+}
+
+/* ============================================
+   SCOTCH DÉCHIRÉ (tags langage)
+   ============================================ */
+.scotch {
+  display: inline-block;
+  font-family: var(--font-titre);
+  font-size: 0.85rem;
+  color: var(--texte);
+  padding: 3px 14px;
+  margin: 3px 4px;
+
+  clip-path: polygon(
+    2% 8%, 6% 0%, 94% 3%, 98% 0%,
+    100% 15%, 97% 85%, 100% 92%, 96% 100%,
+    4% 97%, 0% 100%, 3% 82%, 0% 18%
+  );
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+
+.scotch:nth-child(2n) {
+  clip-path: polygon(
+    0% 12%, 4% 2%, 96% 0%, 100% 8%,
+    98% 88%, 100% 95%, 94% 100%,
+    6% 98%, 0% 90%, 2% 10%
+  );
+  transform: rotate(1.5deg);
+}
+
+.scotch:nth-child(3n) {
+  clip-path: polygon(
+    3% 5%, 8% 0%, 92% 2%, 97% 6%,
+    100% 20%, 98% 80%, 100% 95%,
+    93% 100%, 5% 98%, 0% 94%,
+    2% 75%, 0% 25%
+  );
+  transform: rotate(-1deg);
+}
+
+.scotch:hover { transform: rotate(0deg) scale(1.05); }
+
+.scotch[data-lang="Unity"]  { background: var(--scotch-unity);  }
+.scotch[data-lang="Unreal"] { background: var(--scotch-unreal); }
+.scotch[data-lang="Python"] { background: var(--scotch-python); }
+.scotch[data-lang="C++"]    { background: var(--scotch-cpp);    }
+.scotch[data-lang="CSharp"] { background: var(--scotch-csharp); }
+
+/* ============================================
+   BOUTON STYLE TAMPON
+   ============================================ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-titre);
+  font-size: 1rem;
+  color: var(--texte);
+  background: transparent;
+  border: 2px solid var(--texte);
+  border-radius: 3px;
+  padding: 8px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  box-shadow: 3px 3px 0 var(--texte);
+}
+
+.btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--texte);
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.btn-accent {
+  color: var(--pin-rouge);
+  border-color: var(--pin-rouge);
+  box-shadow: 3px 3px 0 var(--pin-rouge);
+}
+
+.btn-accent:hover {
+  background-color: var(--pin-rouge);
+  color: var(--papier);
+}
+
+/* ============================================
+   TITRE DE SECTION
+   ============================================ */
+.section-titre {
+  font-family: var(--font-titre);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--texte);
+  display: inline-block;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.section-titre::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--pin-rouge);
+  border-radius: 2px;
+  transform: rotate(-0.8deg);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+  border-top: 1px dashed rgba(44, 24, 16, 0.2);
+}
+
+footer .social-links {
+  display: inline-flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+footer .social-logo {
+  width: 36px;
+  height: 36px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+footer .social-logo:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* ============================================
+   UTILITAIRES
+   ============================================ */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
