@@ -3,77 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Mon Portfolio</title>
+    <title>Contact - Axel Gathelier</title>
+    <meta name="description" content="Contacte Axel Gathelier, développeur de jeux vidéo, pour échanger sur un projet, un stage ou une collaboration.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact - Axel Gathelier">
+    <meta property="og:description" content="Un projet, un stage, une collaboration ? Écris-moi.">
+    <meta name="theme-color" content="#A0784A">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/script.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script defer src="js/contact.js"></script>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Navigation principale">
         <ul>
             <li><a href="index.html" id="nav-home-link">Accueil</a></li>
             <li><a href="list_projects.html" id="nav-projects-link">Projets</a></li>
-            <li><a id="nav-contact-link">Contact</a></li>
+            <li><a href="contact.html" id="nav-contact-link" class="active" aria-current="page">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content -->
-    <section class="contact-content">
-        <h1>Contactez-moi</h1>
-        <form id="contact-form">
-            <label for="name">Votre Nom:</label>
-            <input type="text" id="name" name="name" required>
-        
-            <label for="email">Votre Adresse e-mail:</label>
-            <input type="email" id="email" name="email" required>
-        
-            <label for="subject">Le sujet du message:</label>
-            <input type="text" id="subject" name="subject" required>
-        
-            <label for="message">Votre Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-            
-            <div class="captcha">
-                <h4>Veuillez résoudre ce Captcha :</h4>
-                <label for="captcha" id="captcha-label"></label>
-                <input type="text" id="captcha" name="captcha" required>
-            </div>
-        
-            <button type="submit" class="btn">Envoyer</button>
-        </form>
-        
-        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-        <script>
-            (function() {
-                emailjs.init("q0trTDzrOfO8QivVJ");
-            })();
+    <main class="plain">
+        <section class="contact-content">
+            <h1>Contactez-moi</h1>
+            <form id="contact-form">
+                <label for="name">Votre nom :</label>
+                <input type="text" id="name" name="name" autocomplete="name" required>
 
-            function generateCaptcha() {
-                const num1 = Math.floor(Math.random() * 10);
-                const num2 = Math.floor(Math.random() * 10);
-                document.getElementById('captcha-label').innerText = `Captcha: ${num1} + ${num2} = ?`;
-                return num1 + num2;
-            }
+                <label for="email">Votre adresse e-mail :</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
 
-            const correctCaptcha = generateCaptcha();
+                <label for="subject">Le sujet du message :</label>
+                <input type="text" id="subject" name="subject" required>
 
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const userCaptcha = parseInt(document.getElementById('captcha').value);
-                if (userCaptcha !== correctCaptcha) {
-                    alert("Captcha incorrect. Veuillez réessayer.");
-                    return;
-                }
-                emailjs.sendForm('service_wkcineu', 'template_joouz3s', this)
-                    .then(function() {
-                        alert("Message envoyé avec succès.");
-                    }, function(error) {
-                        alert("Échec de l'envoi du message.");
-                    });
-            });
-        </script>
-    </section>
+                <label for="message">Votre message :</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <!-- Champ piège anti-robots (laissé vide par les humains) -->
+                <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                <div class="captcha">
+                    <h4>Veuillez résoudre ce captcha :</h4>
+                    <label for="captcha" id="captcha-label">Captcha : …</label>
+                    <input type="text" id="captcha" name="captcha" inputmode="numeric" autocomplete="off" required>
+                </div>
+
+                <button type="submit" class="btn">Envoyer</button>
+                <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright">© 2026 Axel Gathelier</p>
+    </footer>
 
 </body>
 </html>

@@ -3,70 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Mon Portfolio</title>
+    <title>Axel Gathelier - Développeur de jeux vidéo | Portfolio</title>
+    <meta name="description" content="Portfolio d'Axel Gathelier, développeur de jeux vidéo : projets Unity, Unreal Engine, C++ et Python, game jams et expérience professionnelle.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Axel Gathelier - Développeur de jeux vidéo">
+    <meta property="og:description" content="Mes projets Unity, Unreal Engine, C++ et Python : jeux, moteurs, game jams et expérience professionnelle.">
+    <meta name="theme-color" content="#A0784A">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/projects.js"></script>
+    <script defer src="js/render.js"></script>
     <script defer src="js/script.js"></script>
+    <script defer src="js/rotations.js"></script>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Navigation principale">
         <ul>
-            <li><a id="nav-home-link">Accueil</a></li>
-            <li><a href="list_projects.html" class="project-button-navbar" id="nav-projects-link">Projets</a></li>
+            <li><a href="index.html" id="nav-home-link" class="active" aria-current="page">Accueil</a></li>
+            <li><a href="list_projects.html" id="nav-projects-link">Projets</a></li>
             <li><a href="contact.html" id="nav-contact-link">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content -->
-    <section class="main-content">
-        <h1 class="sub-title">Bienvenue sur mon portfolio</h1>
-    </section>
+    <main class="plain">
+        <!-- Hero -->
+        <section class="main-content">
+            <p class="hero-eyebrow">Salut, moi c'est</p>
+            <h1>Axel Gathelier</h1>
+            <p class="hero-tagline">Développeur de jeux vidéo : Unity, Unreal Engine et C++. Je crée des jeux pour divertir, et des moteurs pour comprendre comment ils fonctionnent.</p>
+            <div class="hero-actions">
+                <a href="list_projects.html" class="btn btn-accent">Voir mes projets</a>
+                <a href="contact.html" class="btn">Me contacter</a>
+            </div>
+        </section>
 
-    <!-- Section À propos de moi -->
-    <section class="about-me">
-        <div class="about-me-content">
+        <!-- Compétences -->
+        <section class="skills reveal" aria-label="Technologies maîtrisées">
+            <div class="tags">
+                <span class="scotch" data-lang="Unity">Unity</span>
+                <span class="scotch" data-lang="Unreal">Unreal Engine</span>
+                <span class="scotch" data-lang="C++">C++</span>
+                <span class="scotch" data-lang="CSharp">C#</span>
+                <span class="scotch" data-lang="Python">Python</span>
+                <span class="scotch">Git &amp; GitHub</span>
+            </div>
+        </section>
+
+        <!-- Section À propos de moi -->
+        <section class="about-me reveal">
             <h2 class="sub-title">À propos de moi</h2>
-            <img src="images/photo_de_profil.jpg" alt="Photo de profil" class="profile-picture" id="profile-picture">
-            <div class="about-me-text">
-                <p>Depuis mon plus jeune âge, j'ai été fasciné par l'impact des jeux vidéo : leur habileté à raconter des récits captivants, à élaborer des univers riches et à provoquer des émotions uniques. Cette passion m'a donc amené à découvrir et maîtriser des outils tels que Unity et Unreal Engine, qui me permettent de transformer mes idées en expériences interactives concrètes.</p>
-                <p>Au-delà de l'aspect technique, mon but majeur est clair : <strong><span id="highlight-word">Divertir</span></strong>. Que ce soit pour procurer un moment d’évasion, engendrer un fou rire entre amis ou tout simplement pour tuer le temps, mon désir est que chaque personne qui joue à mes jeux passe un bon moment. Mon ambition est de concevoir des univers où chacun peut s’amuser, se détendre et repartir avec le sourire.</p>
-                <p>Je considère le jeu vidéo comme un moyen d'expression artistique et technologique extrêmement puissant, et je m’efforce à surpasser les frontières de la créativité à travers chaque projet.</p>
-                <p>N’hésite pas à parcourir mon portfolio pour découvrir mes créations ou à me contacter si tu veux échanger ou collaborer !</p>
+            <div class="about-me-content">
+                <img src="images/photo_de_profil.jpg" alt="Photo de profil" class="profile-picture" id="profile-picture" width="150" height="150">
+                <div class="about-me-text">
+                    <p>Depuis tout petit, je suis fasciné par ce que les jeux vidéo savent faire : raconter des histoires, bâtir des univers riches et provoquer des émotions uniques. Cette passion m'a conduit à maîtriser Unity et Unreal Engine pour transformer mes idées en expériences interactives.</p>
+                    <p>Mon but est simple : <strong><span id="highlight-word">Divertir</span></strong>. Un moment d'évasion, un fou rire entre amis ou simplement de quoi tuer le temps : je veux que chaque personne qui joue à mes jeux passe un bon moment et reparte avec le sourire. N'hésite pas à parcourir mes projets, ou à me contacter pour échanger ou collaborer !</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Section Projets en vedette -->
-    <section class="featured-projects">
-        <div class="featured-projects-header">
-            <h2 class="sub-title">Projets en vedette</h2>
-        </div>
-        <div class="projects-list">
-            <div class="project">
-                <h3 class="title-featured-projects">PodRacer</h3>
-                <img src="images/Project5/img1.png" alt="PodRacer" class="project-thumbnail">
-                <p>PodRacer est un jeu de course et de parcours futuriste développé sous Unreal Engine 5, où le joueur pilote un vaisseau antigravité à travers des circuits rapides, dynamiques et bourrés d'obstacles destructibles. Inspiré du style nerveux de Trackmania, chaque course est une invitation à la vitesse, à la maîtrise et à l'expérimentation.</p>
-                <a href="Project Detail/project5.html" class="btn">Voir le projet</a>
+        <!-- Section Projets en vedette -->
+        <section class="featured-projects reveal">
+            <div class="featured-projects-header">
+                <h2 class="sub-title">Projets en vedette</h2>
             </div>
-            <div class="project">
-                <h3 class="title-featured-projects">AstroShift</h3>
-                <img src="images/Project2/img1.png" alt="AstroShift" class="project-thumbnail">
-                <p>Un jeu où vous contrôlez un vaisseau spatial pour éviter des météores et explorer l'univers.</p>
-                <a href="Project Detail/project2.html" class="btn">Voir le projet</a>
-            </div>
-        </div>
-    </section>
+            <div class="projects-list" id="featured-list"></div>
+            <p class="featured-more"><a href="list_projects.html" class="btn">Voir tous les projets</a></p>
+        </section>
+    </main>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="https://github.com/GolfOcean334" target="_blank">
-                <img src="images/github_logo.png" alt="GitHub Logo" class="social-logo">
+            <a href="https://github.com/GolfOcean334" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="images/github_logo.png" alt="GitHub" class="social-logo">
             </a>
-            <a href="https://www.linkedin.com/in/axel-gathelier-13198b252/" target="_blank">
-                <img src="images/linkedin_logo.png" alt="LinkedIn Logo" class="social-logo">
+            <a href="https://www.linkedin.com/in/axel-gathelier-13198b252/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <img src="images/linkedin_logo.png" alt="LinkedIn" class="social-logo">
             </a>
         </div>
+        <p class="copyright">© 2026 Axel Gathelier</p>
     </footer>
 
 </body>

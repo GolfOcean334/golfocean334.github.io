@@ -1,7 +1,9 @@
 /* ============================================
    IMPORTS FONTS
+   Patrick Hand / Caveat : titres et accents
+   Nunito : texte courant (lisible sur de longs paragraphes)
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap');
 
 /* ============================================
    VARIABLES GLOBALES
@@ -13,7 +15,7 @@
   --papier-ombre: #F0E6C8;
 
   --texte:        #2C1810;
-  --texte-doux:   #6B4C3B;
+  --texte-doux:   #5A3D2E;
   --texte-clair:  #9C7B6B;
 
   --pin-rouge:    #C0392B;
@@ -27,9 +29,11 @@
   --scotch-python: rgba(100, 200, 130, 0.80);
   --scotch-cpp:    rgba(220, 100, 120, 0.80);
   --scotch-csharp: rgba(160, 100, 220, 0.80);
+  --scotch-autre:  rgba(240, 230, 200, 0.95);
 
-  --font-titre: 'Patrick Hand', cursive;
-  --font-texte: 'Caveat', cursive;
+  --font-titre:  'Patrick Hand', cursive;
+  --font-accent: 'Caveat', cursive;
+  --font-texte:  'Nunito', system-ui, sans-serif;
 
   --radius:      4px;
   --shadow-card: 4px 8px 20px rgba(44, 24, 16, 0.25);
@@ -46,19 +50,16 @@
 
 html { scroll-behavior: smooth; }
 
-/* ============================================
-   FOND KRAFT AVEC TEXTURE PAPIER
-   ============================================ */
 body {
   font-family: var(--font-texte);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--texte);
   min-height: 100vh;
   position: relative;
   background-color: var(--kraft);
 }
 
-/* Couche 1 : grain de papier kraft via SVG filtre */
+/* Grain de papier kraft */
 body::before {
   content: "";
   position: fixed;
@@ -70,7 +71,7 @@ body::before {
   background-repeat: repeat;
 }
 
-/* Couche 2 : lignes horizontales subtiles (veinage papier kraft) */
+/* Veinage horizontal subtil */
 body::after {
   content: "";
   position: fixed;
@@ -87,8 +88,14 @@ body::after {
   );
 }
 
-/* Tout le contenu passe au-dessus des pseudo-éléments du body */
 body > * { position: relative; z-index: 1; }
+
+:focus-visible {
+  outline: 3px solid rgba(192, 57, 43, 0.55);
+  outline-offset: 3px;
+}
+
+img { max-width: 100%; }
 
 /* ============================================
    TYPOGRAPHIE
@@ -97,6 +104,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-titre);
   color: var(--texte);
   line-height: 1.2;
+  font-weight: 400;
 }
 
 h1 { font-size: clamp(2rem,   5vw, 3.5rem); }
@@ -105,10 +113,12 @@ h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
 
 p, li, label, input, textarea {
   font-family: var(--font-texte);
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
   line-height: 1.7;
   color: var(--texte-doux);
 }
+
+strong { color: var(--texte); }
 
 /* ============================================
    NAVBAR — TEXTURE LIÈGE
@@ -120,20 +130,21 @@ p, li, label, input, textarea {
   padding: 0 8%;
   border-bottom: 3px solid rgba(44, 24, 16, 0.25);
   overflow: hidden;
-
-  /* Couleur de base liège */
   background-color: #A0784A;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-/* Texture liège : combinaison de deux turbulences pour simuler les fibres */
+.navbar.scrolled {
+  background-color: #8F6A3F;
+  box-shadow: 0 4px 14px rgba(44, 24, 16, 0.4);
+}
+
 .navbar::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-
-  /* Cercles irréguliers qui imitent les pores du liège */
   background-image:
     radial-gradient(ellipse 3px 2px at 12% 30%, rgba(80,50,20,0.35) 0%, transparent 100%),
     radial-gradient(ellipse 2px 3px at 28% 70%, rgba(80,50,20,0.25) 0%, transparent 100%),
@@ -149,7 +160,6 @@ p, li, label, input, textarea {
   background-repeat: repeat;
 }
 
-/* Grain fin par-dessus */
 .navbar::after {
   content: "";
   position: absolute;
@@ -197,6 +207,7 @@ p, li, label, input, textarea {
 
 .navbar a:hover { color: #ffffff; }
 .navbar a:hover::after,
+.navbar a:focus-visible::after,
 .navbar a.active::after {
   transform: scaleX(1);
   transform-origin: left;
@@ -211,79 +222,23 @@ p, li, label, input, textarea {
   border-radius: 0 0 var(--radius) var(--radius);
   padding: 2rem 1.5rem 1.5rem;
   box-shadow: var(--shadow-card);
-
-  /* Point de pivot = le pin en haut au centre */
   transform-origin: 50% 0%;
-
-  /* Rotation initiale définie par JS */
   transform: rotate(-1deg);
-
-  /* Transition douce sauf pendant le balancier (géré par JS) */
   transition: box-shadow 0.3s ease;
 }
 
-/* Bord supérieur déchiré via clip-path */
-/* On laisse le bas et les côtés droits, seul le haut est irrégulier */
 .card::before {
   content: "";
   position: absolute;
   top: -14px;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
   height: 18px;
   background-color: var(--papier);
   z-index: 1;
-
-  /* Forme déchirée — dents irrégulières sur le bord supérieur */
-  clip-path: polygon(
-    0%   100%,
-    0%   60%,
-    2%   30%,
-    4%   55%,
-    6%   20%,
-    8%   50%,
-    11%  10%,
-    13%  45%,
-    16%  15%,
-    18%  50%,
-    21%  25%,
-    23%  55%,
-    26%  8%,
-    28%  40%,
-    31%  18%,
-    33%  48%,
-    36%  12%,
-    38%  42%,
-    41%  22%,
-    43%  52%,
-    46%  5%,
-    48%  38%,
-    51%  18%,
-    53%  50%,
-    56%  10%,
-    58%  45%,
-    61%  20%,
-    63%  48%,
-    66%  8%,
-    68%  40%,
-    71%  22%,
-    73%  52%,
-    76%  15%,
-    78%  45%,
-    81%  18%,
-    83%  50%,
-    86%  5%,
-    88%  35%,
-    91%  12%,
-    93%  42%,
-    96%  22%,
-    98%  55%,
-    100% 40%,
-    100% 100%
-  );
+  clip-path: polygon(0 100%, 0 55%, 5% 20%, 10% 55%, 15% 10%, 21% 50%, 27% 18%, 34% 48%, 40% 8%, 47% 45%, 54% 15%, 61% 52%, 68% 10%, 75% 45%, 82% 18%, 89% 50%, 95% 12%, 100% 42%, 100% 100%);
 }
 
-/* Ombre sous le bord déchiré pour donner du relief */
 .card::after {
   content: "";
   position: absolute;
@@ -291,109 +246,78 @@ p, li, label, input, textarea {
   left: 0;
   right: 0;
   height: 8px;
-  background: linear-gradient(
-    to bottom,
-    rgba(44, 24, 16, 0.12),
-    transparent
-  );
+  background: linear-gradient(to bottom, rgba(44, 24, 16, 0.12), transparent);
   z-index: 0;
   pointer-events: none;
 }
 
 /* ============================================
-   PIN
+   SCOTCH DÉCHIRÉ (tags techno)
    ============================================ */
-.pin {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  z-index: 10;
-  box-shadow: 2px 3px 6px rgba(0,0,0,0.45);
-  background: radial-gradient(
-    circle at 35% 35%,
-    rgba(255,255,255,0.6) 0%,
-    var(--pin-color, var(--pin-rouge)) 55%
-  );
-  cursor: pointer;
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  margin: 0.5rem 0;
 }
 
-.pin[data-color="rouge"]  { --pin-color: var(--pin-rouge);  }
-.pin[data-color="bleu"]   { --pin-color: var(--pin-bleu);   }
-.pin[data-color="vert"]   { --pin-color: var(--pin-vert);   }
-.pin[data-color="jaune"]  { --pin-color: var(--pin-jaune);  }
-.pin[data-color="violet"] { --pin-color: var(--pin-violet); }
-
-/* Tige */
-.pin::after {
-  content: "";
-  position: absolute;
-  bottom: -7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 9px;
-  background: rgba(44, 24, 16, 0.35);
-  border-radius: 0 0 2px 2px;
-}
-
-/* ============================================
-   SCOTCH DÉCHIRÉ (tags langage)
-   ============================================ */
 .scotch {
   display: inline-block;
   font-family: var(--font-titre);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: var(--texte);
+  background: var(--scotch-autre);
   padding: 3px 14px;
   margin: 3px 4px;
-
-  clip-path: polygon(
-    2% 8%, 6% 0%, 94% 3%, 98% 0%,
-    100% 15%, 97% 85%, 100% 92%, 96% 100%,
-    4% 97%, 0% 100%, 3% 82%, 0% 18%
-  );
+  clip-path: polygon(2% 8%, 6% 0%, 94% 3%, 98% 0%, 100% 15%, 97% 85%, 100% 92%, 96% 100%, 4% 97%, 0% 100%, 3% 82%, 0% 18%);
   transform: rotate(-2deg);
   transition: transform 0.2s ease;
 }
 
 .scotch:nth-child(2n) {
-  clip-path: polygon(
-    0% 12%, 4% 2%, 96% 0%, 100% 8%,
-    98% 88%, 100% 95%, 94% 100%,
-    6% 98%, 0% 90%, 2% 10%
-  );
+  clip-path: polygon(0% 12%, 4% 2%, 96% 0%, 100% 8%, 98% 88%, 100% 95%, 94% 100%, 6% 98%, 0% 90%, 2% 10%);
   transform: rotate(1.5deg);
 }
 
 .scotch:nth-child(3n) {
-  clip-path: polygon(
-    3% 5%, 8% 0%, 92% 2%, 97% 6%,
-    100% 20%, 98% 80%, 100% 95%,
-    93% 100%, 5% 98%, 0% 94%,
-    2% 75%, 0% 25%
-  );
+  clip-path: polygon(3% 5%, 8% 0%, 92% 2%, 97% 6%, 100% 20%, 98% 80%, 100% 95%, 93% 100%, 5% 98%, 0% 94%, 2% 75%, 0% 25%);
   transform: rotate(-1deg);
 }
 
 .scotch:hover { transform: rotate(0deg) scale(1.05); }
 
-.scotch[data-lang="Unity"]  { background: var(--scotch-unity);  }
-.scotch[data-lang="Unreal"] { background: var(--scotch-unreal); }
-.scotch[data-lang="Python"] { background: var(--scotch-python); }
-.scotch[data-lang="C++"]    { background: var(--scotch-cpp);    }
-.scotch[data-lang="CSharp"] { background: var(--scotch-csharp); }
+.scotch[data-lang="Unity"]   { background: var(--scotch-unity);  }
+.scotch[data-lang="Unreal"]  { background: var(--scotch-unreal); }
+.scotch[data-lang="Python"]  { background: var(--scotch-python); }
+.scotch[data-lang="C++"]     { background: var(--scotch-cpp);    }
+.scotch[data-lang="CSharp"]  { background: var(--scotch-csharp); }
+
+/* Badge de catégorie (pro / école / jam / perso) */
+.badge {
+  display: inline-block;
+  font-family: var(--font-titre);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--papier);
+  padding: 2px 12px;
+  border-radius: 3px;
+  background: var(--pin-jaune);
+  transform: rotate(-1.5deg);
+}
+.badge[data-cat="pro"]   { background: var(--pin-rouge); }
+.badge[data-cat="ecole"] { background: var(--pin-vert); }
+.badge[data-cat="jam"]   { background: var(--pin-bleu); }
+.badge[data-cat="perso"] { background: #A8860B; }
 
 /* ============================================
-   BOUTON STYLE TAMPON
+   BOUTONS STYLE TAMPON
    ============================================ */
 .btn {
   display: inline-block;
   font-family: var(--font-titre);
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--texte);
   background: transparent;
   border: 2px solid var(--texte);
@@ -415,6 +339,8 @@ p, li, label, input, textarea {
   box-shadow: none;
 }
 
+.btn:disabled { opacity: 0.55; cursor: wait; }
+
 .btn-accent {
   color: var(--pin-rouge);
   border-color: var(--pin-rouge);
@@ -427,9 +353,10 @@ p, li, label, input, textarea {
 }
 
 /* ============================================
-   TITRE DE SECTION
+   TITRES DE SECTION
    ============================================ */
-.section-titre {
+.section-titre,
+.sub-title {
   font-family: var(--font-titre);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   color: var(--texte);
@@ -438,7 +365,8 @@ p, li, label, input, textarea {
   margin-bottom: 2rem;
 }
 
-.section-titre::after {
+.section-titre::after,
+.sub-title::after {
   content: "";
   position: absolute;
   bottom: -6px;
@@ -453,29 +381,35 @@ p, li, label, input, textarea {
 /* ============================================
    FOOTER
    ============================================ */
-footer {
+.footer {
   text-align: center;
   padding: 2rem;
   margin-top: 4rem;
-  border-top: 1px dashed rgba(44, 24, 16, 0.2);
+  border-top: 1px dashed rgba(44, 24, 16, 0.25);
 }
 
-footer .social-links {
+.social-links {
   display: inline-flex;
   gap: 2rem;
   align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: var(--papier-ombre);
+  box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
 }
 
-footer .social-logo {
+.social-logo {
   width: 36px;
   height: 36px;
-  opacity: 0.7;
+  opacity: 0.75;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-footer .social-logo:hover {
-  opacity: 1;
-  transform: scale(1.15);
+.social-logo:hover { opacity: 1; transform: scale(1.15); }
+
+.copyright {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--texte);
 }
 
 /* ============================================
@@ -486,6 +420,9 @@ main {
   margin: 0 auto;
   padding: 3.5rem 5% 1rem;
 }
+
+/* Pages dont les sections gèrent elles-mêmes leurs marges (accueil, contact) */
+main.plain { max-width: none; padding: 0; }
 
 .projects-header {
   max-width: 680px;
@@ -502,23 +439,28 @@ main {
   text-transform: uppercase;
 }
 
-.projects-header .section-titre {
-  margin-bottom: 1rem;
-}
+.projects-header .section-titre { margin-bottom: 1rem; }
 
 .filter-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.75rem 1.5rem;
   width: fit-content;
   max-width: 100%;
-  margin: 0 auto 4rem;
-  padding: 0.75rem 1rem;
+  margin: 0 auto 3rem;
+  padding: 0.75rem 1.25rem;
   background: var(--papier-ombre);
   border: 1px dashed rgba(44, 24, 16, 0.45);
   box-shadow: 3px 4px 0 rgba(44, 24, 16, 0.18);
   transform: rotate(0.5deg);
+}
+
+.filter-container .filter-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .filter-container label {
@@ -531,16 +473,32 @@ main {
   padding: 0.35rem 0.6rem;
   color: var(--texte);
   font-family: var(--font-texte);
-  font-size: 1.05rem;
+  font-size: 1rem;
   background: var(--papier);
   border: 1px solid var(--texte-doux);
   border-radius: var(--radius);
   cursor: pointer;
 }
 
-.filter-container select:focus-visible {
-  outline: 3px solid rgba(192, 57, 43, 0.35);
-  outline-offset: 2px;
+.project-group { margin-bottom: 4rem; }
+
+.group-title {
+  margin: 0 0 0.5rem 1rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  color: var(--texte);
+  display: inline-block;
+  padding: 0.1rem 1rem;
+  background: var(--papier-ombre);
+  box-shadow: 3px 4px 0 rgba(44, 24, 16, 0.18);
+  transform: rotate(-1deg);
+}
+
+.no-result {
+  text-align: center;
+  padding: 3rem 0;
+  font-family: var(--font-titre);
+  font-size: 1.4rem;
+  color: var(--texte);
 }
 
 .projects-container {
@@ -550,43 +508,31 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3.5rem 2rem;
   align-items: start;
-  padding: 1.5rem 1rem 2rem;
+  padding: 2.5rem 1rem 1rem;
 }
 
 .project {
   position: relative;
   min-width: 0;
-  padding: 2rem 1.5rem 1.5rem;
-  background: var(--papier);
-  border-radius: 0 0 var(--radius) var(--radius);
-  box-shadow: var(--shadow-card);
-  transform: rotate(-1deg);
-  transform-origin: 50% 0%;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
-.project:nth-child(3n + 1) { margin-top: 1.1rem; }
-.project:nth-child(3n + 2) { margin-top: -0.5rem; }
-.project:nth-child(5n) { margin-top: 1.8rem; }
-
-.project::before {
-  content: "";
-  position: absolute;
-  top: -14px;
-  left: 0;
-  right: 0;
-  height: 18px;
-  background: var(--papier);
-  clip-path: polygon(0 100%, 0 55%, 5% 20%, 10% 55%, 15% 10%, 21% 50%, 27% 18%, 34% 48%, 40% 8%, 47% 45%, 54% 15%, 61% 52%, 68% 10%, 75% 45%, 82% 18%, 89% 50%, 95% 12%, 100% 42%, 100% 100%);
-  z-index: 1;
-}
+/* Décalages "à la main" appliqués par le JS aux cartes visibles */
+.project.is-s1 { margin-top: 1.1rem; }
+.project.is-s2 { margin-top: -0.5rem; }
+.project.is-s3 { margin-top: 1.8rem; }
 
 .project-info {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   text-align: center;
+  height: 100%;
 }
 
+/* Punaise : couleur selon la catégorie */
 .project-info::before {
   content: "";
   position: absolute;
@@ -600,74 +546,100 @@ main {
   transform: translateX(-50%);
 }
 
-.project[data-language="Unity"] .project-info::before { --pin-color: var(--pin-jaune); }
-.project[data-language="Unreal"] .project-info::before { --pin-color: var(--pin-bleu); }
-.project[data-language="Python"] .project-info::before { --pin-color: var(--pin-vert); }
-.project[data-language="C++"] .project-info::before { --pin-color: var(--pin-rouge); }
-.project[data-language="CSharp"] .project-info::before { --pin-color: var(--pin-violet); }
+.project[data-cat="pro"]   .project-info::before { --pin-color: var(--pin-rouge); }
+.project[data-cat="ecole"] .project-info::before { --pin-color: var(--pin-vert); }
+.project[data-cat="jam"]   .project-info::before { --pin-color: var(--pin-bleu); }
+.project[data-cat="perso"] .project-info::before { --pin-color: var(--pin-jaune); }
 
-.project h2 {
-  margin-bottom: 0.75rem;
+.project-title {
+  margin-bottom: 0.5rem;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
 }
 
-.project p {
-  margin: 1rem 0 1.25rem;
-  text-align: left;
+.project-title a { color: inherit; text-decoration: none; }
+.project-title a:hover { text-decoration: underline wavy var(--pin-rouge); text-underline-offset: 5px; }
+
+.project-company {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  color: var(--pin-rouge);
+  font-weight: 700;
 }
 
 .project-thumbnail {
   display: block;
   width: 100%;
-  height: 190px;
+  aspect-ratio: 16 / 9;
   margin: 0.75rem 0 1rem;
   object-fit: cover;
   border: 6px solid var(--papier-ombre);
   box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
+  background: var(--papier-ombre);
 }
 
-.language-logo-python,
-.language-logo-csharp,
-.language-logo-unity,
-.language-logo-unreal,
-.language-logo-cpp {
-  width: auto;
-  height: 32px;
-  max-width: 100px;
-  margin: 0 auto;
-  object-fit: contain;
-  filter: sepia(0.25);
+.project p {
+  margin: 0.75rem 0 1.25rem;
+  text-align: left;
+  flex-grow: 1;
 }
 
-.project .btn {
-  margin-top: 0.25rem;
-}
+.project .btn { align-self: center; margin-top: 0.25rem; }
 
-.project:hover {
-  box-shadow: 6px 12px 25px rgba(44, 24, 16, 0.32);
-}
+.project:hover { box-shadow: 6px 12px 25px rgba(44, 24, 16, 0.32); }
 
 /* ============================================
    ACCUEIL
    ============================================ */
 .main-content,
 .about-me,
+.skills,
 .featured-projects {
   max-width: 1100px;
   margin: 0 auto;
   padding: 3rem 5%;
 }
 
+/* Hero */
 .main-content {
   text-align: center;
   padding-top: 5rem;
 }
 
-.main-content .sub-title,
-.featured-projects .sub-title,
-.about-me .sub-title {
-  margin-bottom: 1.5rem;
+.hero-eyebrow {
+  font-family: var(--font-accent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pin-rouge);
 }
+
+.main-content h1 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+}
+
+.hero-tagline {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  color: var(--texte);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+}
+
+/* Bande de compétences */
+.skills { text-align: center; padding-top: 1rem; padding-bottom: 1rem; }
+.skills .tags { gap: 4px; }
+.skills .scotch { font-size: 1.15rem; padding: 4px 18px; }
+
+.about-me .sub-title,
+.featured-projects .sub-title { margin-bottom: 1.5rem; }
+
+.about-me { text-align: center; }
 
 .about-me-content {
   display: flex;
@@ -687,69 +659,29 @@ main {
   border-radius: 50%;
   box-shadow: 3px 4px 0 rgba(44, 24, 16, 0.22);
   object-fit: cover;
+  cursor: pointer;
 }
 
-.about-me-text {
-  max-width: 780px;
-  text-align: left;
-}
+.about-me-text { max-width: 720px; text-align: left; }
+.about-me-text p + p { margin-top: 1rem; }
 
 .about-me-text strong,
-#highlight-word {
-  color: var(--pin-rouge);
-}
+#highlight-word { color: var(--pin-rouge); }
 
-.featured-projects {
-  text-align: center;
-}
-
-.featured-projects-header {
-  margin-bottom: 2rem;
-}
+.featured-projects { text-align: center; }
+.featured-projects-header { margin-bottom: 1rem; }
+.featured-more { margin-top: 3rem; }
 
 .projects-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem;
+  gap: 3.5rem 3rem;
   align-items: start;
+  padding-top: 1.5rem;
 }
 
-.projects-list .project {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  width: auto;
-  height: auto;
-  padding: 2rem 1.5rem 1.5rem;
-  text-align: left;
-}
-
+.projects-list .project { text-align: left; }
 .projects-list .project:nth-child(2) { margin-top: 1.5rem; }
-
-.title-featured-projects {
-  align-self: stretch;
-  margin-bottom: 1rem;
-  color: var(--texte);
-  font-family: var(--font-titre);
-  font-size: 2rem;
-  text-align: center;
-}
-
-.projects-list .project p { flex-grow: 1; }
-.projects-list .project .btn { align-self: center; }
-
-.footer {
-  text-align: center;
-  padding: 2rem;
-}
-
-.social-links {
-  display: inline-flex;
-  gap: 2rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--papier-ombre);
-  box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
-}
 
 /* ============================================
    CONTACT
@@ -763,20 +695,15 @@ main {
   transform: rotate(-0.4deg);
 }
 
-.contact-content h1 {
-  margin-bottom: 2rem;
-  text-align: center;
-}
+.contact-content h1 { margin-bottom: 2rem; text-align: center; }
 
-.contact-content form {
-  display: flex;
-  flex-direction: column;
-}
+.contact-content form { display: flex; flex-direction: column; }
 
 .contact-content label {
   margin-top: 1rem;
   color: var(--texte);
   font-family: var(--font-titre);
+  font-size: 1.15rem;
 }
 
 .contact-content input,
@@ -785,8 +712,6 @@ main {
   margin-top: 0.35rem;
   padding: 0.7rem 0.8rem;
   color: var(--texte);
-  font-family: var(--font-texte);
-  font-size: 1.1rem;
   background: #fffaf0;
   border: 1px solid var(--kraft-dark);
   border-radius: var(--radius);
@@ -805,25 +730,50 @@ main {
   border-left: 4px solid var(--pin-rouge);
 }
 
-.contact-content .captcha h4 {
-  margin-bottom: 0.5rem;
-  font-family: var(--font-titre);
-  font-size: 1.25rem;
+.contact-content .captcha h4 { margin-bottom: 0.25rem; font-size: 1.25rem; }
+.contact-content .btn { align-self: center; margin-top: 1.5rem; }
+
+/* Champ piège anti-robots : invisible pour les humains */
+.hp {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
-.contact-content .btn {
-  align-self: center;
-  margin-top: 1.5rem;
+.form-status {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 600;
+  border-radius: var(--radius);
 }
+.form-status:empty { display: none; }
+.form-status.ok  { color: #145a32; background: rgba(30, 132, 73, 0.15);  border: 1px solid var(--pin-vert); }
+.form-status.err { color: #7b241c; background: rgba(192, 57, 43, 0.12); border: 1px solid var(--pin-rouge); }
 
 /* ============================================
-   FICHES PROJET
+   FICHE PROJET (projet.html?id=...)
    ============================================ */
 .project-details-container {
   max-width: 1450px;
   margin: 0 auto;
-  padding: 3.5rem 5%;
+  padding: 2rem 5% 3.5rem;
 }
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-family: var(--font-titre);
+  font-size: 1.2rem;
+  color: var(--texte);
+  text-decoration: none;
+  background: var(--papier-ombre);
+  padding: 4px 14px;
+  box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
+}
+.back-link:hover { text-decoration: underline wavy var(--pin-rouge); text-underline-offset: 5px; }
 
 .project-details {
   display: flex;
@@ -831,10 +781,12 @@ main {
   gap: 2.5rem;
 }
 
-.structure,
-.project-text {
+.project-details--solo { justify-content: center; }
+.project-details--solo .structure { flex: 0 1 820px; }
+
+.structure {
   position: relative;
-  flex: 1 1 40%;
+  flex: 1 1 42%;
   min-width: 0;
   padding: 2rem;
   background: var(--papier);
@@ -843,8 +795,7 @@ main {
   transform: rotate(-0.6deg);
 }
 
-.structure::before,
-.project-text::before {
+.structure::before {
   content: "";
   position: absolute;
   top: -14px;
@@ -855,20 +806,25 @@ main {
   clip-path: polygon(0 100%, 0 55%, 6% 20%, 12% 52%, 18% 12%, 25% 48%, 32% 18%, 40% 50%, 48% 8%, 56% 45%, 64% 16%, 72% 52%, 80% 10%, 88% 45%, 96% 18%, 100% 42%, 100% 100%);
 }
 
-.structure h1,
-.project-text h1,
 #title-project {
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
   color: var(--texte);
-  font-family: var(--font-titre);
   font-size: clamp(2rem, 4vw, 3rem);
   text-align: center;
 }
 
-.info-grid {
-  display: grid;
-  gap: 1.25rem;
+.project-meta { text-align: center; margin-bottom: 1.5rem; }
+
+.pro-meta {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px dashed var(--pin-rouge);
+  font-size: 1rem;
 }
+.pro-meta strong { font-family: var(--font-titre); font-weight: 400; font-size: 1.1rem; }
+
+.info-grid { display: grid; gap: 1.25rem; }
 
 .info-card {
   padding: 1rem;
@@ -876,21 +832,18 @@ main {
   border-left: 3px solid var(--pin-rouge);
 }
 
-.info-card h2,
-.info-card h3 {
+.info-card h2 {
   margin-bottom: 0.5rem;
-  color: var(--texte);
-  font-family: var(--font-titre);
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
 }
 
-.info-card ul {
-  padding-left: 1.25rem;
-}
+.info-card p + p { margin-top: 0.5rem; }
+.info-card ul { padding-left: 1.25rem; }
 
 .project-media {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  flex: 1 1 60%;
+  flex: 1 1 58%;
   gap: 1.25rem;
   min-width: 0;
 }
@@ -905,58 +858,100 @@ main {
   box-shadow: 3px 4px 0 rgba(44, 24, 16, 0.2);
 }
 
+.project-media > img { cursor: zoom-in; }
+
 .project-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
+.project-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+.project-nav a { max-width: 48%; }
+.project-nav .next { margin-left: auto; text-align: right; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(20, 10, 5, 0.88);
+  cursor: zoom-out;
+}
+.lightbox img { max-width: 100%; max-height: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+
+/* ============================================
+   APPARITION AU SCROLL (opacité uniquement)
+   ============================================ */
+.js .reveal { opacity: 0; transition: opacity 0.7s ease; }
+.js .reveal.is-visible { opacity: 1; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 1100px) {
   .project-details { flex-direction: column; }
   .structure,
-  .project-text,
-  .project-media { width: 100%; }
+  .project-media { width: 100%; flex: none; }
+  .project-details--solo .structure { flex: none; }
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+  .projects-container { gap: 3.5rem 1.5rem; }
+  .project.is-s1 { margin-top: 0.8rem; }
+  .project.is-s2 { margin-top: -0.3rem; }
+  .project.is-s3 { margin-top: 1.2rem; }
 }
 
 @media (max-width: 600px) {
   main { padding: 2.5rem 4% 1rem; }
+  .navbar { padding: 0 4%; }
   .navbar ul { gap: 1.25rem; }
   .navbar a { font-size: 1.1rem; }
-  .filter-container {
-    width: 100%;
-    flex-direction: column;
-    margin-bottom: 3rem;
-  }
-  .projects-container {
-    grid-template-columns: 1fr;
-    gap: 3.5rem 1rem;
-    padding: 1rem 0 0;
-  }
-  .project:nth-child(n) { margin-top: 0; }
+  .filter-container { width: 100%; flex-direction: column; margin-bottom: 2.5rem; }
+  .projects-container { grid-template-columns: 1fr; gap: 3.5rem 1rem; padding: 2.5rem 0 0; }
+  .project.is-s1,
+  .project.is-s2,
+  .project.is-s3,
+  .projects-list .project:nth-child(2) { margin-top: 0; }
+  .main-content { padding-top: 3rem; }
   .main-content,
   .about-me,
-  .featured-projects { padding: 2rem 4%; }
+  .skills,
+  .featured-projects { padding-left: 4%; padding-right: 4%; }
   .about-me-content,
   .contact-content,
-  .structure,
-  .project-text { padding: 1.5rem; }
+  .structure { padding: 1.5rem; }
   .projects-list,
   .project-media { grid-template-columns: 1fr; }
-  .projects-list .project:nth-child(2) { margin-top: 0; }
   .contact-content { margin: 2.5rem 4%; }
-  .project-details-container { padding: 2.5rem 4%; }
+  .project-details-container { padding: 1.5rem 4% 2.5rem; }
+  .project-nav { flex-direction: column; }
+  .project-nav a { max-width: 100%; }
+  .project-nav .next { margin-left: 0; text-align: left; }
 }
 
-@media (min-width: 601px) and (max-width: 950px) {
-  .projects-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3.5rem 1.5rem;
+/* ============================================
+   ACCESSIBILITÉ : MOUVEMENT RÉDUIT
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-  .project:nth-child(3n + 1) { margin-top: 0.8rem; }
-  .project:nth-child(3n + 2) { margin-top: -0.3rem; }
-  .project:nth-child(5n) { margin-top: 1.2rem; }
+  .js .reveal { opacity: 1; }
 }
 
 /* ============================================

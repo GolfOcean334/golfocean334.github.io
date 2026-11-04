@@ -1,71 +1,49 @@
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".carousel").forEach(carousel => {
-        let images = [
-            "images/image1.jpg", "images/image2.jpg", "images/image3.jpg"
-        ];
-        let imgElement = carousel.querySelector(".carousel-image"); 
-        let currentIndex = 0;
+/* ============================================================
+   script.js — comportements communs à toutes les pages
+   ============================================================ */
 
-        carousel.querySelector(".next").addEventListener("click", function() {
-            currentIndex = (currentIndex + 1) % images.length;
-            imgElement.src = images[currentIndex];
-        });
+// Navbar : ombre plus marquée après défilement
+(function () {
+  const navbar = document.querySelector(".navbar");
+  if (!navbar) return;
+  const update = () => navbar.classList.toggle("scrolled", window.scrollY > 50);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+})();
 
-        carousel.querySelector(".prev").addEventListener("click", function() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            imgElement.src = images[currentIndex];
-        });
-    });
-});
-
-// Change la classe de la navbar après défilement
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-// Change la couleur du mot "highlight" au clic sur l'image de profil
+// Accueil : un clic sur la photo change la couleur du mot « Divertir »
 document.addEventListener("DOMContentLoaded", () => {
-    const profilePicture = document.getElementById("profile-picture");
-    const highlightWord = document.getElementById("highlight-word");
+  const profilePicture = document.getElementById("profile-picture");
+  const highlightWord = document.getElementById("highlight-word");
+  if (!profilePicture || !highlightWord) return;
 
-    // Sécurise si l'élément n'existe pas sur cette page
-    if (!profilePicture || !highlightWord) return;
+  const randomColor = () =>
+    "#" + Array.from({ length: 6 }, () => "0123456789ABCDEF"[Math.floor(Math.random() * 16)]).join("");
 
-    function getRandomColor() {
-        const letters = "0123456789ABCDEF";
-        let color = "#";
-        for (let i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)];
-        return color;
-    }
-
-    profilePicture.addEventListener("click", () => {
-        highlightWord.style.color = getRandomColor();
-    });
+  profilePicture.addEventListener("click", () => {
+    highlightWord.style.color = randomColor();
+  });
 });
 
-// Filtre par langage pour la page projects.html
-document.addEventListener('DOMContentLoaded', () => {
-    const filter = document.getElementById('language-filter');
-    const projects = Array.from(document.querySelectorAll('.projects-container .project'));
-    if (!filter || projects.length === 0) return;
+// Apparition en fondu des sections au scroll
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".reveal");
+  if (!items.length) return;
 
-    function applyFilter(value) {
-        const val = (value || 'all').trim();
-        projects.forEach(project => {
-            const langAttr = (project.getAttribute('data-language') || '').trim();
-            // Support éventuel d'une liste séparée par virgule
-            const langs = langAttr.split(',').map(s => s.trim()).filter(Boolean);
-            const match = (val === 'all') || langs.includes(val);
-            project.style.display = match ? '' : 'none';
-        });
-    }
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(el => el.classList.add("is-visible"));
+    return;
+  }
 
-    filter.addEventListener('change', (e) => applyFilter(e.target.value));
-    // Initialisation immédiate avec la valeur courante du select
-    applyFilter(filter.value);
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  items.forEach(el => observer.observe(el));
 });
