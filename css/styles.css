@@ -3,7 +3,7 @@
    Patrick Hand / Caveat : titres et accents
    Nunito : texte courant (lisible sur de longs paragraphes)
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap');
+/* Polices : chargées par <link> dans le <head> de chaque page (non bloquant) */
 
 /* ============================================
    VARIABLES GLOBALES
@@ -37,6 +37,41 @@
 
   --radius:      4px;
   --shadow-card: 4px 8px 20px rgba(44, 24, 16, 0.25);
+
+  --nav-bg:         #A0784A;
+  --nav-bg-scrolled:#8F6A3F;
+  --champ:          #fffaf0;
+  --line:           rgba(44, 24, 16, 0.25);
+  --ok-text:        #145a32;
+  --err-text:       #7b241c;
+  --string:         #B5302A;
+}
+
+/* ============================================
+   MODE NUIT — même tableau, éclairé à la lampe
+   (activé par <html data-theme="night">, voir js/theme.js)
+   ============================================ */
+html[data-theme="night"] {
+  color-scheme: dark;
+  --kraft:          #241A12;
+  --kraft-dark:     #1B130D;
+  --papier:         #3A2D22;
+  --papier-ombre:   #2E231A;
+
+  --texte:          #F4EAD3;
+  --texte-doux:     #DDD0B4;
+  --texte-clair:    #B5A185;
+
+  --pin-rouge:      #E4574A;
+
+  --nav-bg:         #2B1E14;
+  --nav-bg-scrolled:#21170F;
+  --champ:          #2A2018;
+  --line:           rgba(244, 234, 211, 0.22);
+  --ok-text:        #7DDBA0;
+  --err-text:       #F1948A;
+  --string:         #D8453B;
+  --shadow-card:    4px 8px 22px rgba(0, 0, 0, 0.55);
 }
 
 /* ============================================
@@ -130,12 +165,12 @@ strong { color: var(--texte); }
   padding: 0 8%;
   border-bottom: 3px solid rgba(44, 24, 16, 0.25);
   overflow: hidden;
-  background-color: #A0784A;
+  background-color: var(--nav-bg);
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar.scrolled {
-  background-color: #8F6A3F;
+  background-color: var(--nav-bg-scrolled);
   box-shadow: 0 4px 14px rgba(44, 24, 16, 0.4);
 }
 
@@ -184,7 +219,7 @@ strong { color: var(--texte); }
 .navbar a {
   font-family: var(--font-titre);
   font-size: 1.3rem;
-  color: var(--papier);
+  color: #FDF6E3;
   text-decoration: none;
   padding: 6px 2px;
   position: relative;
@@ -198,7 +233,7 @@ strong { color: var(--texte); }
   bottom: -2px;
   width: 100%;
   height: 2px;
-  background-color: var(--papier);
+  background-color: #FDF6E3;
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: right;
@@ -267,7 +302,7 @@ strong { color: var(--texte); }
   font-family: var(--font-titre);
   font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--texte);
+  color: #2C1810;
   background: var(--scotch-autre);
   padding: 3px 14px;
   margin: 3px 4px;
@@ -300,13 +335,13 @@ strong { color: var(--texte); }
   font-family: var(--font-titre);
   font-size: 0.95rem;
   letter-spacing: 0.04em;
-  color: var(--papier);
+  color: #FDF6E3;
   padding: 2px 12px;
   border-radius: 3px;
   background: var(--pin-jaune);
   transform: rotate(-1.5deg);
 }
-.badge[data-cat="pro"]   { background: var(--pin-rouge); }
+.badge[data-cat="pro"]   { background: #C0392B; }
 .badge[data-cat="ecole"] { background: var(--pin-vert); }
 .badge[data-cat="jam"]   { background: var(--pin-bleu); }
 .badge[data-cat="perso"] { background: #A8860B; }
@@ -349,7 +384,7 @@ strong { color: var(--texte); }
 
 .btn-accent:hover {
   background-color: var(--pin-rouge);
-  color: var(--papier);
+  color: #FDF6E3;
 }
 
 /* ============================================
@@ -385,7 +420,7 @@ strong { color: var(--texte); }
   text-align: center;
   padding: 2rem;
   margin-top: 4rem;
-  border-top: 1px dashed rgba(44, 24, 16, 0.25);
+  border-top: 1px dashed var(--line);
 }
 
 .social-links {
@@ -393,7 +428,7 @@ strong { color: var(--texte); }
   gap: 2rem;
   align-items: center;
   padding: 0.75rem 1.25rem;
-  background: var(--papier-ombre);
+  background: #F0E6C8;
   box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
 }
 
@@ -452,7 +487,7 @@ main.plain { max-width: none; padding: 0; }
   margin: 0 auto 3rem;
   padding: 0.75rem 1.25rem;
   background: var(--papier-ombre);
-  border: 1px dashed rgba(44, 24, 16, 0.45);
+  border: 1px dashed var(--line);
   box-shadow: 3px 4px 0 rgba(44, 24, 16, 0.18);
   transform: rotate(0.5deg);
 }
@@ -566,16 +601,51 @@ main.plain { max-width: none; padding: 0; }
   font-weight: 700;
 }
 
-.project-thumbnail {
-  display: block;
+/* Miniature : l'aperçu animé se superpose à l'image au survol */
+.thumb {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   margin: 0.75rem 0 1rem;
-  object-fit: cover;
+  overflow: hidden;
   border: 6px solid var(--papier-ombre);
   box-shadow: 2px 3px 0 rgba(44, 24, 16, 0.2);
   background: var(--papier-ombre);
 }
+
+.thumb img,
+.thumb video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb .project-preview {
+  opacity: 0;
+  background: transparent;
+  transition: opacity 0.25s ease;
+}
+.thumb.is-playing .project-preview { opacity: 1; }
+
+.thumb.has-preview::after {
+  content: "▶ Aperçu";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 0 9px;
+  font-family: var(--font-titre);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #2C1810;
+  background: rgba(253, 246, 227, 0.92);
+  border-radius: 3px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.thumb.is-playing::after { opacity: 0; }
 
 .project p {
   margin: 0.75rem 0 1.25rem;
@@ -681,7 +751,7 @@ main.plain { max-width: none; padding: 0; }
 }
 
 .projects-list .project { text-align: left; }
-.projects-list .project:nth-child(2) { margin-top: 1.5rem; }
+.projects-list .project:nth-of-type(2) { margin-top: 1.5rem; }
 
 /* ============================================
    CONTACT
@@ -712,7 +782,7 @@ main.plain { max-width: none; padding: 0; }
   margin-top: 0.35rem;
   padding: 0.7rem 0.8rem;
   color: var(--texte);
-  background: #fffaf0;
+  background: var(--champ);
   border: 1px solid var(--kraft-dark);
   border-radius: var(--radius);
 }
@@ -750,8 +820,8 @@ main.plain { max-width: none; padding: 0; }
   border-radius: var(--radius);
 }
 .form-status:empty { display: none; }
-.form-status.ok  { color: #145a32; background: rgba(30, 132, 73, 0.15);  border: 1px solid var(--pin-vert); }
-.form-status.err { color: #7b241c; background: rgba(192, 57, 43, 0.12); border: 1px solid var(--pin-rouge); }
+.form-status.ok  { color: var(--ok-text); background: rgba(30, 132, 73, 0.15);  border: 1px solid var(--pin-vert); }
+.form-status.err { color: var(--err-text); background: rgba(192, 57, 43, 0.12); border: 1px solid var(--pin-rouge); }
 
 /* ============================================
    FICHE PROJET (projet.html?id=...)
@@ -924,7 +994,7 @@ main.plain { max-width: none; padding: 0; }
   .project.is-s1,
   .project.is-s2,
   .project.is-s3,
-  .projects-list .project:nth-child(2) { margin-top: 0; }
+  .projects-list .project:nth-of-type(2) { margin-top: 0; }
   .main-content { padding-top: 3rem; }
   .main-content,
   .about-me,
@@ -950,6 +1020,7 @@ main.plain { max-width: none; padding: 0; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
   .js .reveal { opacity: 1; }
 }
@@ -961,3 +1032,276 @@ main.plain { max-width: none; padding: 0; }
 .mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
 .mt-3 { margin-top: 3rem; }
+
+/* ============================================
+   EFFETS VISUELS
+   ============================================ */
+
+/* --- Cartes qui s'épinglent (js/effects.js + js/render.js) --- */
+.project { z-index: 1; }
+
+.js .project.pin-wait { opacity: 0; }
+
+.project.is-pinned {
+  animation: pin-drop 0.75s cubic-bezier(0.2, 0.85, 0.3, 1) backwards;
+  animation-delay: var(--pin-delay, 0s);
+}
+
+.project.is-pinned .project-info::before {
+  animation: pin-press 0.75s cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  animation-delay: var(--pin-delay, 0s);
+}
+
+@keyframes pin-drop {
+  0%   { opacity: 0; translate: 0 -46px; scale: 1.05; }
+  55%  { opacity: 1; translate: 0 5px;   scale: 0.995; }
+  75%  { translate: 0 -2px; }
+  100% { opacity: 1; translate: 0 0;     scale: 1; }
+}
+
+/* la punaise est « enfoncée » : elle passe de grosse (au-dessus) à normale */
+@keyframes pin-press {
+  0%, 45% { scale: 1.75; box-shadow: 6px 14px 10px rgba(0, 0, 0, 0.22); }
+  100%    { scale: 1;    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.4); }
+}
+
+/* --- Ficelle rouge entre les punaises --- */
+.projects-list {
+  position: relative;
+  isolation: isolate;
+}
+
+.strings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 1.5px rgba(0, 0, 0, 0.35));
+  transition: opacity 0.25s ease;
+}
+.strings--back  { z-index: 0; }
+.strings--front { z-index: 3; }
+.strings-off .strings { opacity: 0; }
+
+.strings path {
+  fill: none;
+  stroke: var(--string);
+  stroke-width: 2.6;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.strings path.drawn { stroke-dashoffset: 0; }
+.strings .knot { fill: #8F2420; }
+
+/* --- Décor dessiné autour du hero (js/decor.js) --- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+}
+
+.hero .main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  --scale: 1;
+}
+
+.deco {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: 0;
+  height: 0;
+  /* parallaxe : --mx / --my vont de -1 à 1 selon la souris */
+  translate: calc(var(--mx, 0) * var(--depth, 14) * 1px) calc(var(--my, 0) * var(--depth, 14) * 1px);
+  transition: translate 0.35s ease-out;
+  animation: deco-in 0.8s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  animation-delay: var(--in, 0s);
+}
+
+.deco-body {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--size, 100) * 1px * var(--scale, 1));
+  transform: translate(-50%, -50%) rotate(calc(var(--rot, 0) * 1deg));
+}
+
+.deco-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(2px 4px 4px rgba(44, 24, 16, 0.28));
+  animation: deco-float var(--dur, 6s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes deco-in {
+  from { opacity: 0; scale: 0.4; }
+  to   { opacity: 1; scale: 1; }
+}
+
+@keyframes deco-float {
+  from { transform: translateY(-6px) rotate(-2deg); }
+  to   { transform: translateY(7px)  rotate(2deg); }
+}
+
+/* mode nuit : bordure « autocollant » pour garder les dessins lisibles */
+html[data-theme="night"] .deco-body img {
+  filter:
+    drop-shadow(2px 0 0 #F6ECD2) drop-shadow(-2px 0 0 #F6ECD2)
+    drop-shadow(0 2px 0 #F6ECD2) drop-shadow(0 -2px 0 #F6ECD2)
+    drop-shadow(2px 5px 6px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 700px) {
+  .hero-decor { --scale: 0.5; }
+  .deco[data-mobile="false"] { display: none; }
+  .deco {
+    left: calc(var(--mx0, var(--x)) * 1%);
+    top: calc(var(--my0, var(--y)) * 1%);
+  }
+  /* bande libre en haut du hero pour les dessins */
+  .hero .main-content { padding-top: 6.5rem; }
+}
+
+/* --- Chiffres clés --- */
+.stats {
+  display: none;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5rem 5% 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.stats.is-ready { display: flex; }
+
+.stat {
+  position: relative;
+  min-width: 160px;
+  padding: 1.5rem 1.6rem 1rem;
+  text-align: center;
+  background: var(--papier);
+  box-shadow: var(--shadow-card);
+  transform: rotate(-1.5deg);
+}
+.stat:nth-child(2n) { transform: rotate(1.2deg); }
+.stat:nth-child(3n) { transform: rotate(-0.6deg); }
+
+/* petit morceau de scotch en haut de chaque note */
+.stat::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 66px;
+  height: 20px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background: rgba(244, 208, 63, 0.78);
+  clip-path: polygon(2% 10%, 8% 0%, 94% 4%, 100% 16%, 97% 88%, 100% 96%, 92% 100%, 5% 96%, 0% 90%, 3% 20%);
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--font-titre);
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 1;
+  color: var(--pin-rouge);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-accent);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--texte);
+}
+
+@media (max-width: 600px) {
+  .stats { gap: 1.75rem 1rem; padding-top: 2rem; }
+  .stat { flex: 1 1 38%; min-width: 0; padding: 1.3rem 0.6rem 0.9rem; }
+  .stat-label { font-size: 1.15rem; }
+}
+
+/* --- Bouton du mode nuit --- */
+.nav-tool { display: flex; align-items: center; }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  color: #FDF6E3;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.2s ease;
+}
+.theme-toggle:hover { background: rgba(253, 246, 227, 0.15); transform: rotate(-18deg); }
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="night"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="night"] .theme-toggle .icon-sun  { display: block; }
+
+/* fondu doux des couleurs pendant le basculement jour / nuit */
+.theme-anim *,
+.theme-anim *::before,
+.theme-anim *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease,
+              box-shadow 0.45s ease, fill 0.45s ease, stroke 0.45s ease !important;
+}
+
+/* --- Lampe torche du mode nuit --- */
+.night-light {
+  position: fixed;
+  inset: 0;
+  z-index: 900;                       /* sous la navbar (1000) */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: radial-gradient(
+    circle 380px at var(--lx, 50%) var(--ly, 35%),
+    rgba(255, 205, 130, 0.10) 0%,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(6, 3, 1, 0.5) 100%
+  );
+}
+html[data-theme="night"] .night-light { opacity: 1; }
+
+/* --- Transitions entre pages --- */
+@view-transition { navigation: auto; }
+
+.navbar { view-transition-name: navbar; }
+
+::view-transition-old(root) { animation: 0.22s ease-in both vt-out; }
+::view-transition-new(root) { animation: 0.4s ease-out both vt-in; }
+
+@keyframes vt-out { to   { opacity: 0; transform: translateY(-10px); } }
+@keyframes vt-in  { from { opacity: 0; transform: translateY(16px); } }
+
+/* repli (navigateurs sans View Transitions) : fondu */
+.no-vt body { animation: page-in 0.45s ease both; }
+.no-vt body.is-leaving { opacity: 0; transition: opacity 0.2s ease; }
+@keyframes page-in { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  .no-vt body { animation: none; }
+  .deco-body img { animation: none; }
+}

@@ -10,12 +10,20 @@
     <meta property="og:description" content="Mes projets Unity, Unreal Engine, C++ et Python : jeux, moteurs, game jams et expérience professionnelle.">
     <meta name="theme-color" content="#A0784A">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
-    <script>document.documentElement.classList.add('js');</script>
+    <script>(function(){var d=document.documentElement;d.classList.add('js');if(!window.CSSViewTransitionRule)d.classList.add('no-vt');try{if(localStorage.getItem('portfolio-theme')==='night')d.setAttribute('data-theme','night')}catch(e){}})();</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap"></noscript>
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/projects.js"></script>
+    <script defer src="js/decor.js"></script>
     <script defer src="js/render.js"></script>
     <script defer src="js/script.js"></script>
     <script defer src="js/rotations.js"></script>
+    <script defer src="js/effects.js"></script>
+    <script defer src="js/theme.js"></script>
+    <script defer src="js/transitions.js"></script>
 </head>
 <body>
 
@@ -29,14 +37,17 @@
     </nav>
 
     <main class="plain">
-        <!-- Hero -->
-        <section class="main-content">
-            <p class="hero-eyebrow">Salut, moi c'est</p>
-            <h1>Axel Gathelier</h1>
-            <p class="hero-tagline">Développeur de jeux vidéo : Unity, Unreal Engine et C++. Je crée des jeux pour divertir, et des moteurs pour comprendre comment ils fonctionnent.</p>
-            <div class="hero-actions">
-                <a href="list_projects.html" class="btn btn-accent">Voir mes projets</a>
-                <a href="contact.html" class="btn">Me contacter</a>
+        <!-- Hero (les dessins viennent de js/decor.js) -->
+        <section class="hero" id="hero">
+            <div class="hero-decor" id="hero-decor" aria-hidden="true"></div>
+            <div class="main-content">
+                <p class="hero-eyebrow">Développeur de jeux vidéo</p>
+                <h1>Axel Gathelier</h1>
+                <p class="hero-tagline">Gameplay, systèmes et outils sur Unity, Unreal Engine et C++. Je conçois des mécaniques fiables et des systèmes modulaires, du prototype à la version jouable.</p>
+                <div class="hero-actions">
+                    <a href="list_projects.html" class="btn btn-accent">Voir mes projets</a>
+                    <a href="contact.html" class="btn">Me contacter</a>
+                </div>
             </div>
         </section>
 
@@ -50,6 +61,14 @@
                 <span class="scotch" data-lang="Python">Python</span>
                 <span class="scotch">Git &amp; GitHub</span>
             </div>
+        </section>
+
+        <!-- Chiffres clés : calculés automatiquement depuis js/projects.js -->
+        <section class="stats reveal" aria-label="Chiffres clés">
+            <div class="stat" data-stat="projects"><span class="stat-num">0</span><span class="stat-label"></span></div>
+            <div class="stat" data-stat="techs"><span class="stat-num">0</span><span class="stat-label"></span></div>
+            <div class="stat" data-stat="jams"><span class="stat-num">0</span><span class="stat-label"></span></div>
+            <div class="stat" data-stat="pro"><span class="stat-num">0</span><span class="stat-label"></span></div>
         </section>
 
         <!-- Section À propos de moi -->

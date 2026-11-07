@@ -13,6 +13,10 @@
    tech     : clés de filtre parmi "Unity", "Unreal", "CSharp", "C++", "Python"
    extra    : autres étiquettes libres (SFML, OpenGL, "Équipe de 5"...)
    cover    : image de la carte (facultatif — sans image, la carte s'affiche sans miniature)
+   preview  : aperçu animé joué au survol de la carte (facultatif).
+              Vidéo muette courte (.webm ou .mp4, 3 à 6 s, ~1 Mo) ou GIF.
+              Convention : images/<dossier>/preview.webm. Si le fichier n'existe pas,
+              la carte reste simplement statique (rien ne casse).
    media    : captures (chaîne) ou vidéos ({ video: "chemin.mp4" })
               les images introuvables sont retirées automatiquement de la page
    sections : blocs de la fiche. text = chaîne ou tableau de chaînes (HTML autorisé),
@@ -33,6 +37,7 @@ const PROJECTS = [
     extra: ["Pygame"],
     summary: "Simulation de poissons procéduraux explorant le principe de Body Shape Based Animation.",
     cover: "images/Project12/Img2.png",
+    preview: "images/Project12/preview.webm",
     media: [
       "images/Project12/Img1.png",
       "images/Project12/Img2.png",

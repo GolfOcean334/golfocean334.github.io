@@ -16,11 +16,12 @@
   const CAT_ORDER = ["pro", "ecole", "jam", "perso"];
   const TECH_LABEL = { Unity: "Unity", Unreal: "Unreal Engine", CSharp: "C#", "C++": "C++", Python: "Python" };
 
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const projects = PROJECTS.filter(p => p.visible !== false);
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const detailUrl = p => "projet.html?id=" + encodeURIComponent(p.id);
-  const plain = html => String(html).replace(/<[^>]*>/g, "");
+  const isShown = el => !el.closest("[hidden]");
 
   function tagsHtml(p) {
     const tech = (p.tech || []).map(t => `<span class="scotch" data-lang="${esc(t)}">${esc(TECH_LABEL[t] || t)}</span>`);
@@ -33,6 +34,8 @@
   function dropBrokenImages(root) {
     root.querySelectorAll("img").forEach(img => {
       const remove = () => {
+        const thumb = img.closest(".thumb");
+        if (thumb) { thumb.remove(); return; }
         const media = img.closest(".project-media");
         img.remove();
         if (media && !media.querySelector("img, video")) {
@@ -51,9 +54,11 @@
     const company = p.category === "pro" && p.pro
       ? `<p class="project-company">${esc(p.pro.type || "Pro")} · ${esc(p.pro.company)}</p>` : "";
     const thumb = p.cover
-      ? `<img src="${esc(p.cover)}" alt="${esc(p.title)}" class="project-thumbnail" loading="lazy">` : "";
+      ? `<div class="thumb"${p.preview ? ` data-preview="${esc(p.preview)}"` : ""}>
+           <img src="${esc(p.cover)}" alt="${esc(p.title)}" class="project-thumbnail" loading="lazy">
+         </div>` : "";
     return `
-      <article class="project card" data-cat="${esc(p.category)}" data-tech="${esc((p.tech || []).join(","))}">
+      <article class="project card" data-id="${esc(p.id)}" data-cat="${esc(p.category)}" data-tech="${esc((p.tech || []).join(","))}">
         <div class="project-info">
           <${h} class="project-title"><a href="${detailUrl(p)}">${esc(p.title)}</a></${h}>
           <div><span class="badge" data-cat="${esc(p.category)}">${esc((CATS[p.category] || CATS.perso).badge)}</span></div>
@@ -105,26 +110,100 @@
       .join("");
     dropBrokenImages(listRoot);
 
-    function applyFilters() {
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const canAnimate = typeof Element.prototype.animate === "function";
+    let firstRun = true;
+    let token = 0;
+    let running = [];
+
+    /* Filtrage avec réorganisation animée (technique FLIP) :
+       1. les cartes qui partent s'estompent
+       2. la grille est recalculée
+       3. les cartes restantes glissent de leur ancienne à leur nouvelle place
+       4. les nouvelles cartes s'épinglent
+       On anime la propriété `translate`, indépendante de `transform`
+       (utilisée par rotations.js), donc aucun conflit. */
+    async function applyFilters() {
       const cat = catFilter ? catFilter.value : "all";
       const tech = techFilter ? techFilter.value : "all";
+      const wants = card =>
+        (cat === "all" || card.dataset.cat === cat) &&
+        (tech === "all" || card.dataset.tech.split(",").includes(tech));
+
+      const cards = Array.from(listRoot.querySelectorAll(".project"));
+      const animate = !firstRun && !reduced && canAnimate;
+      const mine = ++token;
+
+      running.forEach(a => a.cancel());
+      running = [];
+
+      const before = new Map();
+      if (animate) cards.forEach(c => { if (isShown(c)) before.set(c, c.getBoundingClientRect()); });
+
+      document.dispatchEvent(new CustomEvent("portfolio:filter", { detail: { phase: "start" } }));
+
+      /* 1. sortie en fondu */
+      const leaving = animate ? cards.filter(c => before.has(c) && !wants(c)) : [];
+      if (leaving.length) {
+        const outs = leaving.map(c => c.animate(
+          [{ opacity: 1, scale: "1" }, { opacity: 0, scale: "0.92" }],
+          { duration: 200, easing: "ease-in", fill: "forwards" }
+        ));
+        running = outs;
+        await Promise.all(outs.map(a => a.finished.catch(() => {})));
+        if (mine !== token) return;
+        outs.forEach(a => a.cancel());
+        running = [];
+      }
+
+      /* 2. nouvelle disposition */
       let total = 0;
       listRoot.querySelectorAll(".project-group").forEach(group => {
         let shown = 0;
         group.querySelectorAll(".project").forEach(card => {
-          const techs = card.dataset.tech.split(",").filter(Boolean);
-          const ok = (cat === "all" || card.dataset.cat === cat) && (tech === "all" || techs.includes(tech));
+          const ok = wants(card);
           card.hidden = !ok;
           if (ok) shown++;
         });
         group.hidden = shown === 0;
+        if (shown) group.classList.add("is-visible");
         total += shown;
         stagger(group.querySelector(".projects-container"));
       });
       if (empty) empty.hidden = total > 0;
+
+      /* 3 + 4. glissement des cartes restantes, entrée des nouvelles */
+      let entering = 0;
+      if (animate) {
+        cards.forEach(card => {
+          if (card.hidden) return;
+          const first = before.get(card);
+          if (first) {
+            const last = card.getBoundingClientRect();
+            const dx = first.left - last.left;
+            const dy = first.top - last.top;
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+              running.push(card.animate(
+                [{ translate: `${dx}px ${dy}px` }, { translate: "0px 0px" }],
+                { duration: 520, easing: "cubic-bezier(.22,.8,.24,1)" }
+              ));
+            }
+          } else {
+            card.classList.remove("pin-wait", "is-pinned");
+            void card.offsetWidth;
+            card.style.setProperty("--pin-delay", (entering++ * 0.07) + "s");
+            card.classList.add("is-pinned");
+          }
+        });
+        await wait(540 + entering * 70);
+        if (mine !== token) return;
+      }
+
+      firstRun = false;
+      document.dispatchEvent(new CustomEvent("portfolio:filter", { detail: { phase: "end" } }));
     }
 
-    [catFilter, techFilter].forEach(sel => sel && sel.addEventListener("change", applyFilters));
+    [catFilter, techFilter].forEach(sel => sel && sel.addEventListener("change", () => { applyFilters(); }));
     applyFilters();
   }
 
