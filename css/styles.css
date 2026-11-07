@@ -219,7 +219,7 @@ strong { color: var(--texte); }
 .navbar a {
   font-family: var(--font-titre);
   font-size: 1.3rem;
-  color: #FDF6E3;
+  color: var(--texte-clair);
   text-decoration: none;
   padding: 6px 2px;
   position: relative;
@@ -233,7 +233,7 @@ strong { color: var(--texte); }
   bottom: -2px;
   width: 100%;
   height: 2px;
-  background-color: #FDF6E3;
+  background-color: var(--texte-clair);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: right;

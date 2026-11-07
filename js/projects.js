@@ -37,13 +37,13 @@ const PROJECTS = [
     extra: ["Pygame"],
     summary: "Simulation de poissons procéduraux explorant le principe de Body Shape Based Animation.",
     cover: "images/Project12/Img2.png",
-    preview: "images/Project12/preview.webm",
+    preview: "images/Project12/videofish.mp4",
     media: [
       "images/Project12/Img1.png",
       "images/Project12/Img2.png",
       "images/Project12/Img3.png",
       "images/Project12/Img4.png",
-      { video: "images/Project12/video1.mp4" }
+      { video: "images/Project12/videofish.mp4" }
     ],
     sections: [
       {
@@ -73,16 +73,18 @@ const PROJECTS = [
     id: "minecraft-engine",
     title: "Minecraft Game Engine",
     category: "perso",
-    featured: false,
+    featured: true,
     visible: true,
     tech: ["CSharp"],
     extra: ["OpenGL"],
     summary: "Mon propre moteur de jeu voxel inspiré de Minecraft : monde infini, chunks et multithreading.",
     cover: "images/Projet11/Minecraft1.png",
+    preview: "images/Project11/MoteurMinecraftDemo.gif",
     media: [
       "images/Projet11/Minecraft1.png",
       "images/Projet11/Minecraft2.png",
-      "images/Projet11/Minecraft3.png"
+      "images/Projet11/Minecraft3.png",
+      { video: "images/Project11/MoteurMinecraftDemo.mp4" }
     ],
     sections: [
       {
