@@ -251,7 +251,9 @@
       const buttons = [
         L.play   ? `<a class="btn btn-accent" href="${esc(L.play)}">▶ Jouer</a>` : "",
         L.itch   ? `<a class="btn" href="${esc(L.itch)}" target="_blank" rel="noopener">Itch.io</a>` : "",
-        L.github ? `<a class="btn" href="${esc(L.github)}" target="_blank" rel="noopener">GitHub</a>` : ""
+        L.github ? `<a class="btn" href="${esc(L.github)}" target="_blank" rel="noopener">GitHub</a>` : "",
+        L.steam ? `<a class="btn" href="${esc(L.steam)}" target="_blank" rel="noopener">Steam</a>` : "",
+        L.epicgames ? `<a class="btn" href="${esc(L.epicgames)}" target="_blank" rel="noopener">Epic Games</a>` : ""
       ].join("");
       const linksCard = buttons
         ? `<section class="info-card"><h2>Liens</h2><div class="project-buttons">${buttons}</div></section>` : "";

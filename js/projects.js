@@ -69,6 +69,60 @@ const PROJECTS = [
     links: { github: "https://github.com/GolfOcean334/Procedural-Animation-Python/releases/tag/RELEASE" }
   },
 
+  
+  {
+    id: "five-card-reinforcement-learning",
+    title: "Five-Card – Reinforcement Learning",
+    category: "ecole",
+    featured: true,
+    visible: true,
+    tech: ["Python", "PyTorch", "PostgreSQL"],
+    extra: ["Machine Learning", "Reinforcement Learning", "DQN", "PPO", "Monte Carlo", "POMDP"],
+    summary: "Conception d'une intelligence artificielle capable d'apprendre à jouer au mini-jeu de cartes Five-Card de Crimson Desert grâce au Reinforcement Learning.",
+    cover: null,
+    media: [],
+    sections: [
+      {
+        title: "Présentation",
+        text: "Dans le cadre de mon mémoire de Master, j'ai conçu et développé un système complet d'intelligence artificielle appliqué au mini-jeu Five-Card de Crimson Desert. Ce jeu de cartes repose sur des décisions stratégiques prises dans un environnement à information incomplète. L'objectif était de créer un adversaire capable d'apprendre ses propres stratégies par expérience, sans disposer de connaissances expertes préalables sur le jeu."
+      },
+      {
+        title: "Objectif du projet",
+        text: "Étudier dans quelle mesure le Reinforcement Learning permet à une intelligence artificielle d'apprendre une stratégie compétitive dans un jeu à information incomplète. Le projet visait également à comparer deux approches d'apprentissage, DQN et PPO, afin d'identifier leurs performances et leur capacité d'adaptation à différents comportements adverses."
+      },
+      {
+        title: "Mon rôle",
+        text: "Conception et développement intégral du système d'intelligence artificielle, depuis la modélisation mathématique du jeu jusqu'à l'entraînement des agents et l'analyse quantitative de leurs performances. J'ai également conçu l'environnement de simulation et l'infrastructure de stockage des données d'entraînement."
+      },
+      {
+        title: "Ce que j'ai réalisé",
+        list: [
+          "<strong>Modélisation du jeu (POMDP)</strong> : formalisation du Five-Card sous forme de processus de décision markovien partiellement observable, avec définition des espaces d'états, d'actions et de la fonction de récompense.",
+          "<strong>Agent DQN</strong> : implémentation d'un algorithme Deep Q-Network utilisant un réseau cible et un Replay Buffer pour apprendre une politique de décision.",
+          "<strong>Agent PPO</strong> : développement d'un agent Proximal Policy Optimization reposant sur une architecture acteur-critique et un mécanisme de clipping.",
+          "<strong>Simulation Monte Carlo</strong> : estimation des probabilités de victoire à partir de simulations répétées pour améliorer la prise de décision.",
+          "<strong>Calcul d'Expected Value</strong> : intégration d'un système d'évaluation de la valeur espérée pour orienter les décisions de mise.",
+          "<strong>Environnement de simulation</strong> : développement d'une simulation reproduisant l'ensemble des règles du Five-Card, avec validation des probabilités par comparaison avec des résultats théoriques.",
+          "<strong>Base de données</strong> : conception d'une infrastructure PostgreSQL composée de quatre tables interconnectées pour enregistrer et suivre l'expérience accumulée par les agents.",
+          "<strong>Entraînement et évaluation</strong> : entraînement de 50 000 épisodes et comparaison des agents sur 3 000 manches par algorithme, contre trois profils adverses distincts."
+        ]
+      },
+      {
+        title: "Résultats",
+        text: "Les entraînements ont permis d'obtenir des taux de victoire globaux de 76,3 % pour le PPO et 75,2 % pour le DQN. Après neutralisation des victoires automatiques liées aux erreurs adverses, les taux corrigés atteignent respectivement 63,7 % et 63,3 %. Le PPO s'est montré plus performant contre les adversaires conservateurs et agressifs, tandis que le DQN a obtenu de meilleurs résultats contre les adversaires aléatoires."
+      },
+      {
+        title: "Technologies",
+        text: "Python, PyTorch, PostgreSQL"
+      },
+      {
+        title: "Plateforme",
+        text: ["Application de simulation et d'entraînement développée en Python.", "Entraînement réalisable sur CPU, sans nécessiter de GPU dédié."]
+      }
+    ],
+    links: {}
+  },
+
   {
     id: "minecraft-engine",
     title: "Minecraft Game Engine",
@@ -620,5 +674,87 @@ const PROJECTS = [
       }
     ],
     links: { github: "" }
-  }
+  },
+
+  {
+    id: "earniverse",
+    title: "Earniverse",
+    category: "pro",
+    featured: false,
+    visible: true,
+    tech: ["Unreal"],
+    extra: ["Arène virtuelle", "E-sport", "Diffusion en direct"],
+    pro: { company: "Earniverse", role: "Développeur Unreal Engine", type: "Projet professionnel" },
+    summary: "Développement d'une arène e-sport virtuelle intégrée au méta-univers Earniverse, permettant aux joueurs d'assister à des compétitions diffusées en direct après l'achat d'un billet.",
+    cover: null,
+    media: [],
+    sections: [
+      {
+        title: "Présentation",
+        text: "Earniverse est un méta-univers virtuel accessible gratuitement, composé d'une carte de 1 080 km² sur laquelle les joueurs peuvent acheter et développer leurs propres terrains. Le projet propose un environnement immersif de qualité cinématographique."
+      },
+      {
+        title: "Objectif du stage",
+        text: "Concevoir et développer une arène virtuelle intégrée à l'univers Earniverse, destinée à accueillir des événements e-sport. L'objectif est de permettre aux joueurs d'acheter des billets, d'accéder à l'arène et d'assister à des matchs diffusés en direct directement depuis le jeu."
+      },
+      {
+        title: "Mon rôle",
+        text: "Développeur Unreal Engine chargé de la création de l'arène virtuelle et de ses fonctionnalités destinées à accueillir des événements e-sport."
+      },
+      {
+        title: "Ce que j'ai réalisé",
+        list: [
+          "<strong>Arène virtuelle</strong> : conception et développement d'un espace dédié à l'accueil des compétitions e-sport.",
+          "<strong>Expérience spectateur</strong> : création d'un environnement permettant aux joueurs d'assister aux événements directement en jeu.",
+          "<strong>Système de billetterie</strong> : objectif d'intégration d'un accès à l'arène conditionné par l'achat d'un billet.",
+          "<strong>Diffusion des matchs</strong> : intégration prévue de la retransmission des compétitions en direct dans l'environnement virtuel."
+        ]
+      },
+      { title: "Technologies", text: "Unreal Engine" },
+      { title: "Plateforme", text: ["PC", "Expérience multijoueur en ligne."] }
+    ],
+    links: {epicgames: "https://store.epicgames.com/p/earniverse-732d09"}
+  },
+
+  {
+    id: "freedom-and-glory",
+    title: "Freedom & Glory",
+    category: "pro",
+    featured: true,
+    visible: true,
+    tech: ["Unity", "CSharp"],
+    extra: ["Lead Development", "IA", "Architecture logicielle", "Gestion de projet", "Jeu 2D / 3D"],
+    pro: { company: "Pillow Interactive", role: "Lead Developer", type: "Développement de jeu vidéo" },
+    summary: "Jeu narratif mêlant aventure en 2D et batailles navales en 3D. En tant que Lead Developer, j'ai participé à la refonte complète de l'architecture du projet, encadré le suivi du développement et travaillé sur les systèmes d'intelligence artificielle.",
+    cover: null,
+    media: [],
+    sections: [
+      {
+        title: "Présentation",
+        text: "Freedom & Glory est un jeu narratif développé par Pillow Interactive, dans lequel les choix du joueur influencent le déroulement de l'histoire. L'expérience alterne entre des séquences narratives en 2D et des batailles navales en 3D mêlant stratégie et action. Une démo du jeu est disponible sur Steam."
+      },
+      {
+        title: "Objectif du stage",
+        text: "Participer au développement de Freedom & Glory en collaboration avec l'équipe de programmation, avec pour objectif de restructurer l'architecture technique du projet, d'améliorer son organisation et de contribuer au développement de ses systèmes de gameplay."
+      },
+      {
+        title: "Mon rôle",
+        text: "En tant que Lead Developer, j'étais chargé de participer à la refonte de l'architecture du projet avec l'équipe de développement, tout en assurant le suivi de l'avancement technique et l'organisation du travail de l'équipe."
+      },
+      {
+        title: "Ce que j'ai réalisé",
+        list: [
+          "<strong>Refonte de l'architecture du projet</strong> : participation à la restructuration complète de l'architecture logicielle avec l'équipe de développement afin d'améliorer l'organisation et la maintenabilité du projet.",
+          "<strong>Développement de l'intelligence artificielle</strong> : programmation des systèmes de déplacement des IA et des différentes tâches qu'elles peuvent effectuer.",
+          "<strong>Intégration des assets</strong> : prise en charge de l'intégration des ressources du jeu dans le projet.",
+          "<strong>Lead Development</strong> : coordination du travail technique avec l'équipe de développement et suivi de l'avancement du projet.",
+          "<strong>Suivi de projet</strong> : organisation et suivi des tâches de développement afin de faciliter la progression de l'équipe."
+        ]
+      },
+      { title: "Technologies", text: "Unity, C#" },
+      { title: "Plateforme", text: ["PC (Windows).", "Démo disponible sur Steam."] }
+    ],
+    links: {steam: "https://store.steampowered.com/app/4113450/Freedom_Glory/"}
+  },
+
 ];

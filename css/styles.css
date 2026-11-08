@@ -219,7 +219,7 @@ strong { color: var(--texte); }
 .navbar a {
   font-family: var(--font-titre);
   font-size: 1.3rem;
-  color: var(--texte-clair);
+  color: #FDF6E3;
   text-decoration: none;
   padding: 6px 2px;
   position: relative;
@@ -233,7 +233,7 @@ strong { color: var(--texte); }
   bottom: -2px;
   width: 100%;
   height: 2px;
-  background-color: var(--texte-clair);
+  background-color: #FDF6E3;
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: right;
@@ -1304,4 +1304,119 @@ html[data-theme="night"] .night-light { opacity: 1; }
   ::view-transition-new(*) { animation: none !important; }
   .no-vt body { animation: none; }
   .deco-body img { animation: none; }
+}
+
+/* --- Bouton avec logo (Steam…) --- */
+.btn-steam {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.btn-logo {
+  width: 1.4em;
+  height: 1.4em;
+  flex: none;
+  object-fit: contain;
+}
+
+/* logo sombre -> clair en mode nuit pour rester visible */
+html[data-theme="night"] .btn-steam .btn-logo { filter: invert(1); }
+
+/* --- Bouton CV de la navbar + fenêtre d'affichage (js/cv.js) --- */
+.navbar .nav-cv {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar a.cv-view {
+  padding: 1px 15px;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  border: 2px solid #FDF6E3;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.navbar a.cv-view:hover,
+.navbar a.cv-view:focus-visible {
+  color: #4A2F14;
+  background: #FDF6E3;
+  transform: rotate(-2deg);
+}
+
+.navbar a.cv-dl {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.navbar a.cv-dl:hover { background: rgba(253, 246, 227, 0.18); transform: translateY(2px); }
+
+.navbar a.cv-view::after,
+.navbar a.cv-dl::after { display: none; }
+
+/* le contour de focus par défaut (rouge) est peu visible sur le liège */
+.navbar :focus-visible { outline-color: #FDF6E3; }
+
+.modal-open { overflow: hidden; }
+
+.cv-dialog {
+  /* `body > *` (position: relative) écraserait le style natif d'une <dialog> : on le refixe */
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(980px, 94vw);
+  height: min(90vh, 1200px);
+  padding: 0;
+  overflow: hidden;
+  color: var(--texte);
+  background: var(--papier);
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
+}
+.cv-dialog[open] { display: flex; flex-direction: column; }
+.cv-dialog::backdrop { background: rgba(20, 10, 5, 0.74); }
+
+.cv-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px dashed var(--line);
+}
+.cv-head h2 { margin: 0; font-size: 1.6rem; }
+
+.cv-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.cv-actions .btn { padding: 4px 14px; font-size: 1rem; }
+
+.cv-body { flex: 1; min-height: 0; background: var(--papier-ombre); }
+.cv-body iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+
+.cv-missing { padding: 3rem 1.5rem; text-align: center; font-family: var(--font-titre); font-size: 1.4rem; }
+
+.cv-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+
+/* fenêtre sans PDF intégré (téléphone, fichier absent) : elle s'ajuste à son contenu */
+.cv-dialog.is-compact { width: min(520px, 92vw); height: fit-content; max-height: 90vh; }
+.cv-dialog.is-compact .cv-body { flex: none; }
+
+/* `display` posé par une classe (.btn…) écraserait l'attribut hidden : on le rend prioritaire */
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .navbar ul { flex-wrap: wrap; gap: 0.4rem 0.9rem; }
+  .navbar a { font-size: 1.05rem; }
+  .navbar a.cv-view { font-size: 1rem; padding: 0 11px; }
+  .navbar a.cv-dl { display: none; }     /* sur téléphone : tout passe par la fenêtre « CV » */
 }
